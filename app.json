@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "ranchcontrol-mobile",
+    "slug": "ranchcontrol-mobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.tads.ranchcontrolmobile"
+    },
+    "ios": {
+      "bundleIdentifier": "com.tads.ranchcontrolmobile"
+    }
+  }
+}
