@@ -6,9 +6,9 @@ export const useAuthentication = () => {
   const { request } = useApi();
 
   const performLogin = useCallback(
-    async (email: string, password: string) => {
+    async (username: string, password: string) => {
       const data = {
-        email,
+        username,
         password,
       };
 

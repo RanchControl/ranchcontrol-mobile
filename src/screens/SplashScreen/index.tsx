@@ -22,8 +22,8 @@ export const SplashScreen: React.FC = () => {
     {
       onSuccess: async (data, context) => {
         await saveTokens({
-          refresh: context.token,
-          access: data.tokens.access,
+          refresh_token: context.token,
+          access_token: data.token.access,
         });
         await saveUserData(data.user);
       },
@@ -38,10 +38,12 @@ export const SplashScreen: React.FC = () => {
   );
 
   const getUserData = async () => {
-    const tokens = await AsyncStorage.getItem('tokens');
-    const parsedTokens: Tokens = JSON.parse(tokens || '{}');
+    const token = await AsyncStorage.getItem('token');
+    const parsedTokens: Tokens = JSON.parse(token || '{}');
 
-    await requestRefreshToken.mutateAsync({ token: parsedTokens.refresh });
+    await requestRefreshToken.mutateAsync({
+      token: parsedTokens.refresh_token,
+    });
   };
 
   useEffect(() => {

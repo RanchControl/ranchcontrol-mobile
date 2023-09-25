@@ -80,7 +80,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     (tokens: Tokens) => {
       return apiInstance?.interceptors.request.use((config) => {
         if (tokens && config.headers) {
-          config.headers.authorization = `Bearer ${tokens.access}`;
+          config.headers.authorization = `Bearer ${tokens.access_token}`;
         }
 
         return config;
