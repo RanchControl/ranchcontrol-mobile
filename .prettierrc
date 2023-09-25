@@ -8,7 +8,9 @@
     "<THIRD_PARTY_MODULES>",
     "^@contexts/(.*)$|@hooks",
     "^(@components/(.*)$)",
-    "^(@*/(.*)$)|@",
+    "^(@stacks/(.*)$)",
+    "^(@screens/(.*)$)",
+    "^@assets/(.*)$|^@themes/(.*)$|@utils",
     "^[./]"
   ],
   "importOrderSeparation": true,
