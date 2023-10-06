@@ -2,9 +2,10 @@ import React from 'react';
 
 import { AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useTheme } from 'styled-components';
+import { useTheme } from 'native-base';
 
 import Home from '../../screens/Home';
+import Profile from '../../screens/Profile';
 
 const BottomTab = createBottomTabNavigator<PrivateStackParamList>();
 
@@ -15,15 +16,15 @@ export const PrivateStack = () => {
     <BottomTab.Navigator
       screenOptions={({ navigation }) => ({
         tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: theme.colors.secondary,
-        tabBarInactiveTintColor: theme.colors.gray.four,
+        tabBarActiveTintColor: theme.colors.secondary[500],
+        tabBarInactiveTintColor: theme.colors.gray[500],
         tabBarLabelStyle: {
           color: navigation.isFocused()
-            ? theme.colors.primary
-            : theme.colors.gray.four,
+            ? theme.colors.primary[500]
+            : theme.colors.gray[500],
           fontFamily: navigation.isFocused()
-            ? theme.font.bold
-            : theme.font.medium,
+            ? theme.fontWeights.extrabold.toString()
+            : theme.fontWeights.normal.toString(),
         },
       })}
     >
@@ -33,7 +34,20 @@ export const PrivateStack = () => {
         options={{
           headerShown: false,
           title: 'Home',
-          tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="home" size={24} color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerShown: false,
+          title: 'Perfil',
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="setting" size={24} color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>

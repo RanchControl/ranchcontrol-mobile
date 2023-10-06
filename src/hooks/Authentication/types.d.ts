@@ -17,20 +17,12 @@ interface IPhone {
 interface IUserInfo {
   id: number;
   username: string;
-  name: string;
-  email: string;
-  cpf: string;
-  cnpj: string;
-  phone: IPhone;
-  avatar: ImageAsset;
-  birthdate: string;
-  status: EStatus;
-  organization: number;
-  email_verified: boolean;
-  rejection_reason: string;
-  registration_self: ImageAsset;
-  role: EUserType;
-  digital_id: [{ id: number; owner: number; file_url: string }];
+  fullName: string;
+  role: string;
+  phoneNumber: string;
+  createdAt: string;
+  updateAt: string;
+  deletedAt: null;
 }
 
 interface UserEditFormValues {
@@ -53,12 +45,12 @@ interface UpdatePasswordFormValues {
 }
 
 interface LoginResponse {
-  tokens: ITokens;
+  token: ITokens;
   user: IUserInfo;
 }
 
 interface RefreshTokenResponse {
-  tokens: Omit<ITokens, 'refresh'>;
+  token: Omit<ITokens, 'refresh'>;
   user: IUserInfo;
 }
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { Box, Button, Text } from 'native-base';
-import { useTheme } from 'styled-components';
 
-const Home: React.FC = () => {
-  const theme = useTheme();
-  console.log(theme.colors.background);
+type HomeProps = BottomTabScreenProps<PrivateStackParamList, 'Home'>;
+
+const Home: React.FC<HomeProps> = ({ navigation }) => {
   return (
     <Box
       bgColor={'background'}
@@ -18,7 +18,11 @@ const Home: React.FC = () => {
       <Button onPress={() => {}} mt={4}>
         Clique aqui
       </Button>
-      <Button onPress={() => {}} mt={4} colorScheme="secondary">
+      <Button
+        onPress={() => navigation.navigate('Profile')}
+        mt={4}
+        colorScheme="secondary"
+      >
         Clique aqui
       </Button>
     </Box>
