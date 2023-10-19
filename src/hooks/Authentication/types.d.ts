@@ -54,17 +54,10 @@ interface RefreshTokenResponse {
   user: IUserInfo;
 }
 
-interface RegisterBasicInfoFormValues {
-  name: string;
-  phone: string;
-  birthdate: string;
-  email: string;
-  confirmationData: boolean;
-  username?: string;
-}
-
-interface SignUpFormValues extends RegisterBasicInfoFormValues {
+interface SignUpFormValues {
   username: string;
   password: string;
-  confirm_password: string;
+  fullName: string;
+  phoneNumber: string;
+  role: string;
 }

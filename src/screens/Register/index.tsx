@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useFormik } from 'formik';
 import {
   Button,
@@ -12,31 +13,72 @@ import {
   Select,
   VStack,
   WarningOutlineIcon,
+  useToast,
 } from 'native-base';
-import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import { MaskService } from 'react-native-masked-text';
+import { useMutation } from 'react-query';
 import * as Yup from 'yup';
 
+import AlertToast from '../../components/AlertToast';
+import { useAuthentication } from '../../hooks';
 import { Enums, Errors } from '../../utils';
 
-const Register: React.FC = () => {
+type RegisterProps = NativeStackScreenProps<PublicStackParamList, 'Register'>;
+
+const Register: React.FC<RegisterProps> = ({ navigation }) => {
+  const toast = useToast();
+  const { signUp } = useAuthentication();
+  const createUserRequest = useMutation(
+    (values: SignUpFormValues) => signUp(values),
+    {
+      onSuccess: () => {
+        toast.show({
+          title: 'Usuário cadastrado com sucesso',
+          variant: 'solid',
+          duration: 3000,
+          render: () => (
+            <AlertToast
+              status="success"
+              title="Usuário cadastrado com sucesso!"
+            />
+          ),
+        });
+        navigation.navigate('Login');
+      },
+      onError: () => {
+        toast.show({
+          duration: 3000,
+          render: () => (
+            <AlertToast status="error" title="Erro ao cadastrar o usuário" />
+          ),
+        });
+      },
+    }
+  );
+
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
-      name: '',
-      phone: '',
+      fullName: '',
+      phoneNumber: '',
       role: '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().trim().email(Errors.email).required(Errors.required),
+      username: Yup.string().required(Errors.required),
       password: Yup.string().required(Errors.required),
-      name: Yup.string().required(Errors.required),
-      phone: Yup.string().required(Errors.required),
+      fullName: Yup.string().required(Errors.required),
+      phoneNumber: Yup.string().required(Errors.required),
       role: Yup.string().required(Errors.required),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      createUserRequest.mutateAsync(values);
     },
   });
 
@@ -59,20 +101,19 @@ const Register: React.FC = () => {
               </Center>
               <FormControl
                 isRequired
-                isInvalid={!!formik.errors.email && formik.touched.email}
+                isInvalid={!!formik.errors.username && formik.touched.username}
               >
-                <FormControl.Label>Email</FormControl.Label>
+                <FormControl.Label>Username</FormControl.Label>
                 <Input
-                  placeholder="email@email.com"
-                  value={formik.values.email}
-                  onChangeText={formik.handleChange('email')}
-                  onBlur={formik.handleBlur('email')}
-                  keyboardType="email-address"
+                  placeholder="username"
+                  value={formik.values.username}
+                  onChangeText={formik.handleChange('username')}
+                  onBlur={formik.handleBlur('username')}
                 />
                 <FormControl.ErrorMessage
                   leftIcon={<WarningOutlineIcon size="xs" />}
                 >
-                  {formik.errors.email}
+                  {formik.errors.username}
                 </FormControl.ErrorMessage>
               </FormControl>
               <FormControl
@@ -95,38 +136,50 @@ const Register: React.FC = () => {
               </FormControl>
               <FormControl
                 isRequired
-                isInvalid={!!formik.errors.name && formik.touched.name}
+                isInvalid={!!formik.errors.fullName && formik.touched.fullName}
               >
                 <FormControl.Label>Nome completo</FormControl.Label>
                 <Input
-                  value={formik.values.name}
-                  onChangeText={formik.handleChange('name')}
-                  onBlur={formik.handleBlur('name')}
+                  value={formik.values.fullName}
+                  onChangeText={formik.handleChange('fullName')}
+                  onBlur={formik.handleBlur('fullName')}
                   type="text"
                   placeholder="Insira seu nome"
                 />
                 <FormControl.ErrorMessage
                   leftIcon={<WarningOutlineIcon size="xs" />}
                 >
-                  {formik.errors.name}
+                  {formik.errors.fullName}
                 </FormControl.ErrorMessage>
               </FormControl>
               <FormControl
                 isRequired
-                isInvalid={!!formik.errors.phone && formik.touched.phone}
+                isInvalid={
+                  !!formik.errors.phoneNumber && formik.touched.phoneNumber
+                }
               >
                 <FormControl.Label>Telefone</FormControl.Label>
                 <Input
-                  value={formik.values.phone}
-                  onChangeText={formik.handleChange('phone')}
-                  onBlur={formik.handleBlur('phone')}
+                  value={formik.values.phoneNumber}
+                  maxLength={15}
+                  onChangeText={(value) => {
+                    formik.setFieldValue(
+                      'phoneNumber',
+                      MaskService.toMask('cel-phone', value, {
+                        maskType: 'BRL',
+                        withDDD: true,
+                        dddMask: '(99) ',
+                      })
+                    );
+                  }}
+                  onBlur={formik.handleBlur('phoneNumber')}
                   placeholder="(84) 98888-8888"
                   keyboardType="number-pad"
                 />
                 <FormControl.ErrorMessage
                   leftIcon={<WarningOutlineIcon size="xs" />}
                 >
-                  {formik.errors.phone}
+                  {formik.errors.phoneNumber}
                 </FormControl.ErrorMessage>
               </FormControl>
 
@@ -163,7 +216,11 @@ const Register: React.FC = () => {
                 )}
               </FormControl>
 
-              <Button mt="2" onPress={() => formik.handleSubmit()}>
+              <Button
+                isLoading={createUserRequest.isLoading}
+                mt="2"
+                onPress={() => formik.handleSubmit()}
+              >
                 ENTRAR
               </Button>
             </VStack>

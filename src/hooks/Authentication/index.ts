@@ -76,6 +76,16 @@ export const useAuthentication = () => {
     [request]
   );
 
+  const signUp = useCallback(async (data: SignUpFormValues) => {
+    const response = await request<IUserInfo>({
+      method: 'post',
+      url: endpoints.auth.signUp,
+      data,
+    });
+
+    return response.data;
+  }, []);
+
   const updateEmail = useCallback(
     async (email: string, password: string) => {
       const response = await request<IUserInfo>({
@@ -109,5 +119,6 @@ export const useAuthentication = () => {
     updatePassword,
     updateEmail,
     resendConfirmationEmail,
+    signUp,
   };
 };
