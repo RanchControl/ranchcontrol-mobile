@@ -13,9 +13,7 @@ export const RootStack = () => {
   const { isLoading, authorized } = useAuth();
 
   return (
-    <Stack.Navigator
-      screenOptions={{ statusBarStyle: 'dark', statusBarColor: 'white' }}
-    >
+    <Stack.Navigator>
       {isLoading && (
         <Stack.Screen
           name="SplashScreen"

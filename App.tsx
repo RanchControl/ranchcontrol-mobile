@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import { NativeBaseProvider } from 'native-base';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -20,6 +21,7 @@ export default function App() {
         <ThemeProvider theme={theme}>
           <NavigationContainer>
             <QueryClientProvider client={queryClient}>
+              <StatusBar style="dark" />
               <ApiProvider>
                 <AuthProvider>
                   <RootStack />
