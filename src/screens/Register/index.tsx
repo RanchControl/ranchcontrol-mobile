@@ -221,7 +221,7 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
                 mt="2"
                 onPress={() => formik.handleSubmit()}
               >
-                ENTRAR
+                CADASTRAR
               </Button>
             </VStack>
           </Container>
