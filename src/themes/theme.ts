@@ -33,4 +33,11 @@ export const theme = extendTheme({
     darkCyan: '#4b8f8c',
     federalBlue: '#090446',
   },
+  components: {
+    Input: {
+      defaultProps: {
+        size: 'lg',
+      },
+    },
+  },
 });
