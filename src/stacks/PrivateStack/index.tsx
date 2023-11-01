@@ -1,33 +1,51 @@
 import React from 'react';
 
 import { AntDesign } from '@expo/vector-icons';
+import { useToken } from '@gluestack-ui/themed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useTheme } from 'native-base';
 
+import { config } from '../../config/gluestack-ui.config';
+import { useAuth } from '../../contexts/Auth';
+import AdminConfig from '../../screens/AdminConfig';
 import Home from '../../screens/Home';
 import Profile from '../../screens/Profile';
 
 const BottomTab = createBottomTabNavigator<PrivateStackParamList>();
 
 export const PrivateStack = () => {
-  const theme = useTheme();
-
+  const colors = config.tokens.colors;
+  const { appConfig } = useAuth();
   return (
     <BottomTab.Navigator
       screenOptions={({ navigation }) => ({
         tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: theme.colors.secondary[500],
-        tabBarInactiveTintColor: theme.colors.gray[500],
+        tabBarActiveTintColor: colors.secondary500,
+        tabBarInactiveTintColor: colors.green700,
         tabBarLabelStyle: {
-          color: navigation.isFocused()
-            ? theme.colors.primary[500]
-            : theme.colors.gray[500],
+          color: navigation.isFocused() ? colors.primary500 : colors.green700,
           fontFamily: navigation.isFocused()
-            ? theme.fontWeights.extrabold.toString()
-            : theme.fontWeights.normal.toString(),
+            ? useToken('fontWeights', 'extrabold')
+            : useToken('fontWeights', 'normal'),
+        },
+        headerStyle: {
+          backgroundColor: colors.primary400,
+        },
+        headerTintColor: colors.textDark0,
+        headerTitleStyle: {
+          fontWeight: 'bold',
         },
       })}
     >
+      {appConfig ? (
+        <BottomTab.Screen
+          name={'AdminConfig'}
+          component={AdminConfig}
+          options={{
+            title: 'Selecionar fazenda',
+            tabBarStyle: { display: 'none' },
+          }}
+        />
+      ) : null}
       <BottomTab.Screen
         name="Home"
         component={Home}

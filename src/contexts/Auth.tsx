@@ -3,12 +3,15 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
+import { ERole } from '../utils/Enums';
 import { useApi } from './Api';
 
 interface AuthContextValues {
   isLoading: boolean;
   userInfo?: IUserInfo;
   authorized: boolean;
+  appConfig: boolean;
+  setAppConfig: React.Dispatch<React.SetStateAction<boolean>>;
   stopLoading: () => void;
   saveUserData: (userInfo: IUserInfo) => Promise<void>;
   deleteUserData: () => Promise<void>;
@@ -24,6 +27,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [appConfig, setAppConfig] = useState(false);
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation<any>();
@@ -32,10 +36,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const saveUserData = useCallback(async (newUserInfo: IUserInfo) => {
     setUserInfo(newUserInfo);
+    if (newUserInfo?.role === ERole.ADMIN) {
+      setAppConfig(true);
+    }
   }, []);
 
   const deleteUserData = useCallback(async () => {
     setUserInfo(undefined);
+    setAppConfig(false);
   }, []);
 
   const deleteTokens = useCallback(async () => {
@@ -71,6 +79,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         isLoading,
         userInfo: userInfo,
         authorized: !!userInfo,
+        appConfig,
+        setAppConfig,
         stopLoading,
         saveUserData,
         deleteUserData,

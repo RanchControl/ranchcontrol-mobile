@@ -20,4 +20,7 @@ export const endpoints = {
   cep: {
     get: '/cep/v2/:cep',
   },
+  farm: {
+    list: '/farms/',
+  },
 };

@@ -1,28 +1,31 @@
 import React from 'react';
 
-import { MaterialIcons } from '@expo/vector-icons';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useFormik } from 'formik';
 import {
+  AlertCircleIcon,
   Button,
+  ButtonSpinner,
+  ButtonText,
   Center,
-  Container,
   FormControl,
-  Icon,
+  FormControlError,
+  FormControlErrorIcon,
+  FormControlErrorText,
+  FormControlLabel,
+  FormControlLabelText,
   Image,
   Input,
+  InputField,
   KeyboardAvoidingView,
-  Pressable,
   VStack,
-  WarningOutlineIcon,
-  useDisclose,
   useToast,
-} from 'native-base';
+} from '@gluestack-ui/themed';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useFormik } from 'formik';
 import { Keyboard, Platform, TouchableWithoutFeedback } from 'react-native';
 import { useMutation } from 'react-query';
 import * as yup from 'yup';
 
-import CustomToast from '../../CustomToast';
+import AlertToast from '../../components/AlertToast';
 import { useAuth } from '../../contexts/Auth';
 import { useAuthentication } from '../../hooks';
 import { Errors } from '../../utils';
@@ -35,7 +38,6 @@ interface LoginForm {
 }
 
 const Login: React.FC<LoginProps> = ({ navigation }) => {
-  const { isOpen, onToggle } = useDisclose();
   const toast = useToast();
   const { performLogin } = useAuthentication();
   const { saveUserData, saveTokens } = useAuth();
@@ -54,7 +56,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
         toast.show({
           render: () => {
             return (
-              <CustomToast
+              <AlertToast
                 title="Login realizado com sucesso!"
                 status="success"
               />
@@ -67,7 +69,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
         toast.show({
           render: () => {
             return (
-              <CustomToast title="Erro ao realizar o login!" status="error" />
+              <AlertToast title="Erro ao realizar o login!" status="error" />
             );
           },
           placement: 'top',
@@ -94,23 +96,28 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Center flex={1} bg={'background'}>
-          <Container width={'full'}>
-            <VStack w={'full'} space={3} mt="5">
-              <Center>
-                <Image
-                  source={require('../../assets/images/logo-no-background.png')}
-                  width="160"
-                  height="172"
-                  alt='Image of a logo with the name "Ranch Control"'
-                />
-              </Center>
-              <FormControl
-                isRequired
-                isInvalid={!!formik.touched && !!formik.errors.username}
-              >
-                <FormControl.Label>Username</FormControl.Label>
-                <Input
+        <Center flex={1} bg={'$background'} p={'$4'}>
+          <VStack w={'$full'} space={'md'} mt="$5">
+            <Center>
+              <Image
+                source={require('../../assets/images/logo-no-background.png')}
+                alt='Image of a logo with the name "Ranch Control"'
+                sx={{
+                  width: 200,
+                  height: 220,
+                }}
+                role="img"
+              />
+            </Center>
+            <FormControl
+              isRequired
+              isInvalid={!!formik.touched && !!formik.errors.username}
+            >
+              <FormControlLabel mb="$1">
+                <FormControlLabelText>Username</FormControlLabelText>
+              </FormControlLabel>
+              <Input>
+                <InputField
                   value={formik.values.username}
                   onChangeText={formik.handleChange('username')}
                   onBlur={formik.handleBlur('username')}
@@ -118,79 +125,66 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
                   autoCorrect={false}
                   autoCapitalize="none"
                 />
-                {formik.touched.username && formik.errors.username && (
-                  <FormControl.ErrorMessage
-                    leftIcon={<WarningOutlineIcon size="xs" />}
-                  >
+              </Input>
+              {formik.touched.username && formik.errors.username && (
+                <FormControlError>
+                  <FormControlErrorIcon as={AlertCircleIcon} />
+                  <FormControlErrorText>
                     {formik.errors.username}
-                  </FormControl.ErrorMessage>
-                )}
-              </FormControl>
-              <FormControl
-                isRequired
-                isInvalid={
-                  !!formik.touched.password && !!formik.errors.password
-                }
-              >
-                <FormControl.Label>Password</FormControl.Label>
-                <Input
+                  </FormControlErrorText>
+                </FormControlError>
+              )}
+            </FormControl>
+            <FormControl
+              isRequired
+              isInvalid={!!formik.touched.password && !!formik.errors.password}
+            >
+              <FormControlLabel mb="$1">
+                <FormControlLabelText>Password</FormControlLabelText>
+              </FormControlLabel>
+              <Input>
+                <InputField
                   value={formik.values.password}
                   onChangeText={formik.handleChange('password')}
                   onBlur={formik.handleBlur('password')}
                   placeholder="*****"
                   autoCorrect={false}
                   autoCapitalize="none"
-                  type={isOpen ? 'text' : 'password'}
-                  InputRightElement={
-                    <Pressable onPress={onToggle}>
-                      <Icon
-                        as={
-                          <MaterialIcons
-                            name={isOpen ? 'visibility' : 'visibility-off'}
-                          />
-                        }
-                        size={5}
-                        mr="2"
-                        color="muted.400"
-                      />
-                    </Pressable>
-                  }
                 />
-                {formik.touched.password && formik.errors.password && (
-                  <FormControl.ErrorMessage
-                    leftIcon={<WarningOutlineIcon size="xs" />}
-                  >
+              </Input>
+              {formik.touched.password && formik.errors.password && (
+                <FormControlError>
+                  <FormControlErrorIcon as={AlertCircleIcon} />
+                  <FormControlErrorText>
                     {formik.errors.password}
-                  </FormControl.ErrorMessage>
-                )}
-                <Button
-                  _text={{
-                    fontSize: 'xs',
-                    fontWeight: '500',
-                    color: 'secondary.500',
-                  }}
-                  alignSelf="flex-end"
-                  mt="1"
-                  variant={'link'}
+                  </FormControlErrorText>
+                </FormControlError>
+              )}
+              <Button alignSelf="flex-end" mt="$1" variant={'link'}>
+                <ButtonText
+                  fontSize={'$xs'}
+                  fontWeight="$medium"
+                  color="$secondary500"
                 >
                   Esqueceu sua senha?
-                </Button>
-              </FormControl>
-              <Button
-                isLoading={loginRequest.isLoading}
-                mt="2"
-                onPress={() => formik.handleSubmit()}
-              >
-                ENTRAR
+                </ButtonText>
               </Button>
-              <Button
-                variant={'ghost'}
-                onPress={() => navigation.navigate('Register')}
-              >
-                Cadastre-se
-              </Button>
-            </VStack>
-          </Container>
+            </FormControl>
+            <Button
+              isDisabled={loginRequest.isLoading}
+              mt="$2"
+              onPress={() => formik.handleSubmit()}
+            >
+              {loginRequest.isLoading && <ButtonSpinner mr="$1" />}
+              <ButtonText>ENTRAR</ButtonText>
+            </Button>
+            <Button
+              variant="outline"
+              onPress={() => navigation.navigate('Register')}
+            >
+              <ButtonText>Cadastre-se</ButtonText>
+            </Button>
+          </VStack>
         </Center>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

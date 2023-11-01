@@ -16,5 +16,6 @@ type PublicStackParamList = {
 type PrivateStackParamList = {
   Home: undefined;
   Profile: undefined;
+  AdminConfig: undefined;
   AuthStack?: { screen: keyof PublicStackParamList };
 };
