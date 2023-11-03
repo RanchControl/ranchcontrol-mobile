@@ -23,4 +23,7 @@ export const endpoints = {
   farm: {
     list: '/farms/',
   },
+  enclosure: {
+    list: '/enclosure/',
+  },
 };

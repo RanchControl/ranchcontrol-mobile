@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { config } from '../../config/gluestack-ui.config';
 import { useAuth } from '../../contexts/Auth';
 import AdminConfig from '../../screens/AdminConfig';
+import Animals from '../../screens/Animals';
 import Home from '../../screens/Home';
 import Profile from '../../screens/Profile';
+import { EnclosureStack } from './EnclosureStack';
 
 const BottomTab = createBottomTabNavigator<PrivateStackParamList>();
 
@@ -46,13 +48,34 @@ export const PrivateStack = () => {
         />
       )}
       <BottomTab.Screen
-        name="Home"
+        name="Dashboard"
         component={Home}
         options={{
           headerShown: false,
-          title: 'Home',
+          title: 'Dashboard',
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="dashboard" size={24} color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="EnclosureStack"
+        component={EnclosureStack}
+        options={{
+          title: 'Recinto',
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Animal"
+        component={Animals}
+        options={{
+          title: 'Animais',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="cow" size={24} color={color} />
           ),
         }}
       />
