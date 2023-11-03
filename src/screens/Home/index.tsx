@@ -10,7 +10,7 @@ type HomeProps = BottomTabScreenProps<PrivateStackParamList, 'Home'>;
 const Home: React.FC<HomeProps> = () => {
   return (
     <Box
-      bgColor={'background'}
+      bgColor={'$background'}
       width="100%"
       justifyContent="center"
       alignItems="center"

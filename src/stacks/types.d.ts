@@ -17,5 +17,6 @@ type PrivateStackParamList = {
   Home: undefined;
   Profile: undefined;
   AdminConfig: undefined;
+  Animal: undefined;
   AuthStack?: { screen: keyof PublicStackParamList };
 };
