@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AntDesign } from '@expo/vector-icons';
-import { useToken } from '@gluestack-ui/themed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { config } from '../../config/gluestack-ui.config';
@@ -13,7 +12,7 @@ import Profile from '../../screens/Profile';
 const BottomTab = createBottomTabNavigator<PrivateStackParamList>();
 
 export const PrivateStack = () => {
-  const colors = config.tokens.colors;
+  const { colors, fontWeights } = config.tokens;
   const { appConfig } = useAuth();
   return (
     <BottomTab.Navigator
@@ -24,8 +23,8 @@ export const PrivateStack = () => {
         tabBarLabelStyle: {
           color: navigation.isFocused() ? colors.primary500 : colors.green700,
           fontFamily: navigation.isFocused()
-            ? useToken('fontWeights', 'extrabold')
-            : useToken('fontWeights', 'normal'),
+            ? fontWeights.extrabold
+            : fontWeights.normal,
         },
         headerStyle: {
           backgroundColor: colors.primary400,
@@ -36,7 +35,7 @@ export const PrivateStack = () => {
         },
       })}
     >
-      {appConfig ? (
+      {appConfig && (
         <BottomTab.Screen
           name={'AdminConfig'}
           component={AdminConfig}
@@ -45,7 +44,7 @@ export const PrivateStack = () => {
             tabBarStyle: { display: 'none' },
           }}
         />
-      ) : null}
+      )}
       <BottomTab.Screen
         name="Home"
         component={Home}

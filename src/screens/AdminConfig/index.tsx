@@ -6,6 +6,7 @@ import { FlatList } from 'react-native';
 import { useQuery } from 'react-query';
 
 import AlertToast from '../../components/AlertToast';
+import CustomStatusbar from '../../components/CustomStatusbar';
 import { useAuth } from '../../contexts/Auth';
 import { useFarm } from '../../hooks';
 import CardFarm from './CardFarm';
@@ -39,6 +40,7 @@ const AdminConfig: React.FC<AdminConfigProps> = ({ navigation }) => {
 
   return (
     <Center flex={1} backgroundColor="$background" pt={'$5'} px={'$5'}>
+      <CustomStatusbar />
       <FlatList
         data={fetchFarms.data}
         showsHorizontalScrollIndicator={false}
