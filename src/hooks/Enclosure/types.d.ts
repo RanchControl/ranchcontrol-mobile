@@ -4,3 +4,8 @@ interface Enclosure {
   name: string;
   type: string;
 }
+
+interface EnclosureFormValues {
+  name: string;
+  type: string;
+}

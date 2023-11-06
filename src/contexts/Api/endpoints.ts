@@ -25,5 +25,6 @@ export const endpoints = {
   },
   enclosure: {
     list: '/enclosure/',
+    detail: '/enclosure/:id/',
   },
 };

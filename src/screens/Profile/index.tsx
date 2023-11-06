@@ -41,7 +41,7 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
           </>
         ) : (
           <ButtonText fontWeight="$medium" fontSize="$sm">
-            Please wait...
+            Sair
           </ButtonText>
         )}
       </Button>

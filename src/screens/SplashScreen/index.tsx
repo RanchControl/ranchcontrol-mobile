@@ -38,7 +38,7 @@ export const SplashScreen: React.FC = () => {
   );
 
   const getUserData = async () => {
-    const token = await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('tokens');
     const parsedTokens: Tokens = JSON.parse(token || '{}');
 
     await requestRefreshToken.mutateAsync({

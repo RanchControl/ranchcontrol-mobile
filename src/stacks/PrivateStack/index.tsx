@@ -23,13 +23,13 @@ export const PrivateStack = () => {
         tabBarActiveTintColor: colors.secondary500,
         tabBarInactiveTintColor: colors.green700,
         tabBarLabelStyle: {
-          color: navigation.isFocused() ? colors.primary500 : colors.green700,
+          color: navigation.isFocused() ? colors.primary700 : colors.green700,
           fontFamily: navigation.isFocused()
             ? fontWeights.extrabold
             : fontWeights.normal,
         },
         headerStyle: {
-          backgroundColor: colors.primary400,
+          backgroundColor: colors.primary700,
         },
         headerTintColor: colors.textDark0,
         headerTitleStyle: {
@@ -51,7 +51,6 @@ export const PrivateStack = () => {
         name="Dashboard"
         component={Home}
         options={{
-          headerShown: false,
           title: 'Dashboard',
           tabBarIcon: ({ color }) => (
             <AntDesign name="dashboard" size={24} color={color} />

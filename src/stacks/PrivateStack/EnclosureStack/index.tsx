@@ -3,8 +3,9 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { config } from '../../../config/gluestack-ui.config';
-import Enclosure from '../../../screens/Enclosure';
+import EnclosureCreate from '../../../screens/Enclosure/EnclosureCreate';
 import EnclosureDetail from '../../../screens/Enclosure/EnclosureDetail';
+import EnclosureList from '../../../screens/Enclosure/EnclosureList';
 
 const Stack = createNativeStackNavigator<EnclosureStackParamList>();
 
@@ -15,7 +16,7 @@ export const EnclosureStack = () => {
       initialRouteName="EnclosureList"
       screenOptions={{
         headerStyle: {
-          backgroundColor: colors.primary400,
+          backgroundColor: colors.primary700,
         },
         headerTintColor: colors.textDark0,
         headerTitleStyle: {
@@ -25,7 +26,7 @@ export const EnclosureStack = () => {
     >
       <Stack.Screen
         name="EnclosureList"
-        component={Enclosure}
+        component={EnclosureList}
         options={{
           title: 'Recintos',
         }}
@@ -35,6 +36,13 @@ export const EnclosureStack = () => {
         component={EnclosureDetail}
         options={{
           title: 'Detalhes do recinto',
+        }}
+      />
+      <Stack.Screen
+        name="EnclosureCreate"
+        component={EnclosureCreate}
+        options={{
+          title: 'Criar recinto',
         }}
       />
     </Stack.Navigator>

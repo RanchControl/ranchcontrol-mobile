@@ -1,9 +1,12 @@
 import React from 'react';
 
 import {
+  AddIcon,
   Box,
   Button,
   ButtonIcon,
+  Fab,
+  FabIcon,
   HStack,
   Heading,
   Input,
@@ -19,16 +22,16 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList } from 'react-native';
 import { useQuery } from 'react-query';
 
-import AlertToast from '../../components/AlertToast';
-import { useEnclosure } from '../../hooks';
-import CardEnclosure from './CardEnclosure';
+import AlertToast from '../../../components/AlertToast';
+import { useEnclosure } from '../../../hooks';
+import CardEnclosure from '../CardEnclosure';
 
-type EnclosureProps = NativeStackScreenProps<
+type EnclosureListProps = NativeStackScreenProps<
   EnclosureStackParamList,
   'EnclosureList'
 >;
 
-const Enclosure: React.FC<EnclosureProps> = ({ navigation }) => {
+const EnclosureList: React.FC<EnclosureListProps> = ({ navigation }) => {
   const { listEnclosure } = useEnclosure();
   const toast = useToast();
 
@@ -72,7 +75,7 @@ const Enclosure: React.FC<EnclosureProps> = ({ navigation }) => {
                 </InputSlot>
                 <InputField placeholder="Busque o recinto" />
               </Input>
-              <Button size="lg" p="$3.5" bg="$primary100">
+              <Button size="lg" p="$3.5" bg="rgba(40, 84, 41, 0.10);">
                 <ButtonIcon as={MenuIcon} color="$primary500" size="xl" />
               </Button>
             </HStack>
@@ -81,14 +84,22 @@ const Enclosure: React.FC<EnclosureProps> = ({ navigation }) => {
         renderItem={({ item }) => (
           <CardEnclosure
             enclosure={item}
-            onPress={() => navigation.navigate('EnclosureDetail')}
+            onPress={() =>
+              navigation.navigate('EnclosureDetail', { enclosureId: item.id })
+            }
           />
         )}
         ListEmptyComponent={renderEmptyList}
         style={{ width: '100%' }}
       />
+      <Fab
+        onPress={() => navigation.navigate('EnclosureCreate')}
+        placement="bottom right"
+      >
+        <FabIcon as={AddIcon} />
+      </Fab>
     </Box>
   );
 };
 
-export default Enclosure;
+export default EnclosureList;
