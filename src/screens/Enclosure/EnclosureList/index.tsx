@@ -35,7 +35,7 @@ const EnclosureList: React.FC<EnclosureListProps> = ({ navigation }) => {
   const { listEnclosure } = useEnclosure();
   const toast = useToast();
 
-  const fetchEnclosure = useQuery(['enclosure'], listEnclosure, {
+  const fetchEnclosure = useQuery(['enclosures'], listEnclosure, {
     onError: () => {
       toast.show({
         render: () => (

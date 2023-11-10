@@ -26,5 +26,7 @@ export const endpoints = {
   enclosure: {
     list: '/enclosure/',
     detail: '/enclosure/:id/',
+    create: '/enclosure/',
+    update: '/enclosure/:id/',
   },
 };

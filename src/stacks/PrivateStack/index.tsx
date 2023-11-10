@@ -29,7 +29,7 @@ export const PrivateStack = () => {
             : fontWeights.normal,
         },
         headerStyle: {
-          backgroundColor: colors.primary700,
+          backgroundColor: colors.primary500,
         },
         headerTintColor: colors.textDark0,
         headerTitleStyle: {

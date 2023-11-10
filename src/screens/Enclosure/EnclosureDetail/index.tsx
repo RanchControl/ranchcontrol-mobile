@@ -15,10 +15,11 @@ import {
   Spinner,
 } from '@gluestack-ui/themed';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import AlertToast from '../../../components/AlertToast';
-import { useEnclosure } from '../../../hooks';
+import { useEnclosure, useToggle } from '../../../hooks';
+import DeleteDialog from './DeleteDialog';
 
 type EnclosureDetailProps = NativeStackScreenProps<
   EnclosureStackParamList,
@@ -30,12 +31,40 @@ const EnclosureDetail: React.FC<EnclosureDetailProps> = ({
   route,
 }) => {
   const toast = useToast();
-  const { getEnclosure } = useEnclosure();
+  const deleteModal = useToggle();
+  const { getEnclosure, deleteEnclosure } = useEnclosure();
+  const queryClient = useQueryClient();
 
   const fetchEnclosure = useQuery(
-    ['enclosure', route.params.enclosureId],
+    ['enclosures', route.params.enclosureId],
     () => getEnclosure(route.params.enclosureId),
     {
+      onError: () => {
+        toast.show({
+          render: () => (
+            <AlertToast status={'error'} title={'Erro ao carregar o recinto'} />
+          ),
+        });
+        navigation.goBack();
+      },
+    }
+  );
+
+  const deleteEnclosureRequest = useMutation(
+    () => deleteEnclosure(route.params.enclosureId),
+    {
+      onSuccess: () => {
+        toast.show({
+          render: () => (
+            <AlertToast
+              status={'success'}
+              title={'Recinto deletado com sucesso'}
+            />
+          ),
+        });
+        queryClient.invalidateQueries('enclosures');
+        navigation.goBack();
+      },
       onError: () => {
         toast.show({
           render: () => (
@@ -92,14 +121,34 @@ const EnclosureDetail: React.FC<EnclosureDetailProps> = ({
         </Box>
       )}
       <Box>
-        <Button size="lg" bg="$primary400">
+        <Button
+          size="lg"
+          onPress={() =>
+            navigation.navigate('EnclosureEdit', {
+              enclosure: fetchEnclosure.data,
+            })
+          }
+        >
           <ButtonIcon mr={'$2'} as={EditIcon} />
           <ButtonText>Editar</ButtonText>
         </Button>
-        <Button size="lg" action="negative" variant="outline" mt={'$2'}>
+        <Button
+          onPress={deleteModal.onToggle}
+          size="lg"
+          action="negative"
+          variant="outline"
+          mt={'$2'}
+        >
           <ButtonIcon mr={'$2'} as={TrashIcon} />
           <ButtonText>Deletar</ButtonText>
         </Button>
+        <DeleteDialog
+          isOpen={deleteModal.isOpen}
+          onToggle={deleteModal.onToggle}
+          title={'Deletar recinto'}
+          description={'Tem certeza que deseja deletar este recinto?'}
+          onDelete={deleteEnclosureRequest}
+        />
       </Box>
     </VStack>
   );

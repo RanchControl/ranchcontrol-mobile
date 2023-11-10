@@ -25,6 +25,7 @@ type PrivateStackParamList = {
 type EnclosureStackParamList = {
   EnclosureList: undefined;
   EnclosureDetail: { enclosureId: number };
+  EnclosureEdit: { enclosure: Enclosure };
   EnclosureCreate: undefined;
   EnclosureStack?: { screen: keyof EnclosureStackParamList };
 };

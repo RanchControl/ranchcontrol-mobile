@@ -9,30 +9,34 @@ import BaseForm from '../../../components/BaseForm';
 import { useEnclosure } from '../../../hooks';
 import EnclosureInfo from '../Form/EnclosureInfo';
 
-type EnclosureCreateProps = NativeStackScreenProps<
+type EnclosureEditProps = NativeStackScreenProps<
   EnclosureStackParamList,
-  'EnclosureCreate'
+  'EnclosureEdit'
 >;
 
-const EnclosureCreate: React.FC<EnclosureCreateProps> = ({ navigation }) => {
+const EnclosureEdit: React.FC<EnclosureEditProps> = ({ navigation, route }) => {
   const enclosureInfoStepRef = useRef<IFormStepRef>(null);
 
-  const { createEnclosure } = useEnclosure();
-  const toast = useToast();
+  const { updateEnclosure } = useEnclosure();
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   const enclosureRequest = useMutation(
-    async (values: EnclosureFormValues) => createEnclosure(values),
+    async (values: EnclosureFormValues) =>
+      updateEnclosure(route.params.enclosure.id, values),
     {
       onSuccess: () => {
         toast.show({
           placement: 'top',
           render: () => (
-            <AlertToast status={'success'} title={'Recinto cadastrado'} />
+            <AlertToast
+              status={'success'}
+              title={'Recinto atualizado com sucesso!'}
+            />
           ),
         });
         queryClient.invalidateQueries('enclosures');
-        navigation.goBack();
+        navigation.navigate('EnclosureList');
       },
     }
   );
@@ -48,10 +52,14 @@ const EnclosureCreate: React.FC<EnclosureCreateProps> = ({ navigation }) => {
 
     return data;
   }, []);
-
   return (
-    <BaseForm steps={steps} createRequest={enclosureRequest} title="Cadastro" />
+    <BaseForm
+      steps={steps}
+      createRequest={enclosureRequest}
+      title="Edição"
+      initialValues={route.params.enclosure}
+    />
   );
 };
 
-export default EnclosureCreate;
+export default EnclosureEdit;

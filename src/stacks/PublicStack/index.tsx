@@ -19,7 +19,7 @@ export const PublicStack = () => {
         options={{
           headerShown: false,
           headerStyle: {
-            backgroundColor: colors.primary700,
+            backgroundColor: colors.primary500,
           },
         }}
       />
@@ -30,7 +30,7 @@ export const PublicStack = () => {
           title: 'Cadastro',
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: colors.primary700,
+            backgroundColor: colors.primary500,
           },
           headerTintColor: colors.textLight50,
           headerTitleStyle: {
