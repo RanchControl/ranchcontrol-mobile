@@ -9,7 +9,7 @@ interface AlertToastProps {
 
 const AlertToast: React.FC<AlertToastProps> = ({ status, title }) => {
   return (
-    <Alert mt={'$2'} action={status} variant="solid">
+    <Alert mt={'$10'} action={status} variant="solid">
       <ToastTitle>{title}</ToastTitle>
     </Alert>
   );

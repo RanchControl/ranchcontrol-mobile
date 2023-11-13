@@ -14,8 +14,18 @@ type PublicStackParamList = {
 };
 
 type PrivateStackParamList = {
-  Home: undefined;
+  Dashboard: undefined;
   Profile: undefined;
   AdminConfig: undefined;
+  Animal: undefined;
+  EnclosureStack?: { screen: keyof PublicStackParamList };
   AuthStack?: { screen: keyof PublicStackParamList };
+};
+
+type EnclosureStackParamList = {
+  EnclosureList: undefined;
+  EnclosureDetail: { enclosureId: number };
+  EnclosureEdit: { enclosure: Enclosure };
+  EnclosureCreate: undefined;
+  EnclosureStack?: { screen: keyof EnclosureStackParamList };
 };

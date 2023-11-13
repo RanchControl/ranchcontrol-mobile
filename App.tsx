@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { GluestackUIProvider, StatusBar } from '@gluestack-ui/themed';
+import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+import CustomStatusbar from './src/components/CustomStatusbar';
 import { config } from './src/config/gluestack-ui.config';
 import { ApiProvider } from './src/contexts/Api';
 import { AuthProvider } from './src/contexts/Auth';
@@ -20,7 +21,7 @@ export default function App() {
           <QueryClientProvider client={queryClient}>
             <ApiProvider>
               <AuthProvider>
-                <StatusBar barStyle="dark-content" />
+                <CustomStatusbar />
                 <RootStack />
               </AuthProvider>
             </ApiProvider>

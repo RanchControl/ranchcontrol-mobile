@@ -23,4 +23,10 @@ export const endpoints = {
   farm: {
     list: '/farms/',
   },
+  enclosure: {
+    list: '/enclosure/',
+    detail: '/enclosure/:id/',
+    create: '/enclosure/',
+    update: '/enclosure/:id/',
+  },
 };
