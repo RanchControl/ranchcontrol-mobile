@@ -20,7 +20,6 @@ const CardFarm: React.FC<CardFarmProps> = ({ farm, onPress }) => {
         my="$2"
         width={'$full'}
       >
-        <Box></Box>
         <VStack px="$6" pt="$4" pb="$6">
           <Heading textTransform="capitalize" size="sm">
             {farm.name}

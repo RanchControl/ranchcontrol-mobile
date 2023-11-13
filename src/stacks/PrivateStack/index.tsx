@@ -9,13 +9,15 @@ import AdminConfig from '../../screens/AdminConfig';
 import Animals from '../../screens/Animals';
 import Home from '../../screens/Home';
 import Profile from '../../screens/Profile';
+import { ERole } from '../../utils/Enums';
 import { EnclosureStack } from './EnclosureStack';
 
 const BottomTab = createBottomTabNavigator<PrivateStackParamList>();
 
 export const PrivateStack = () => {
   const { colors, fontWeights } = config.tokens;
-  const { appConfig } = useAuth();
+  const { userInfo, appConfig } = useAuth();
+
   return (
     <BottomTab.Navigator
       screenOptions={({ navigation }) => ({
@@ -37,7 +39,7 @@ export const PrivateStack = () => {
         },
       })}
     >
-      {appConfig && (
+      {userInfo?.role === ERole.ADMIN && !appConfig?.farm && (
         <BottomTab.Screen
           name={'AdminConfig'}
           component={AdminConfig}

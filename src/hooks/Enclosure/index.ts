@@ -1,14 +1,19 @@
 import { useCallback } from 'react';
 
 import { endpoints, useApi } from '../../contexts/Api';
+import { useAuth } from '../../contexts/Auth';
 
 export const useEnclosure = () => {
   const { request } = useApi();
+  const { appConfig } = useAuth();
 
   const listEnclosure = useCallback(async () => {
     const response = await request<Enclosure[]>({
       method: 'get',
       url: endpoints.enclosure.list,
+      params: {
+        farm: appConfig?.farm.id,
+      },
     });
 
     return response.data;
@@ -32,7 +37,7 @@ export const useEnclosure = () => {
         method: 'post',
         url: endpoints.enclosure.create,
         data: {
-          farmId: 2,
+          farmId: appConfig?.farm.id,
           ...data,
         },
       });

@@ -32,6 +32,10 @@ interface UserEditFormValues {
   username: string;
 }
 
+interface IAdminConfig {
+  farm: Farm;
+}
+
 type UserEditRequest = ModifyType<
   UserEditFormValues,
   {

@@ -47,7 +47,7 @@ const AdminConfig: React.FC<AdminConfigProps> = ({ navigation }) => {
           <CardFarm
             farm={item}
             onPress={() => {
-              setAppConfig(false);
+              setAppConfig({ farm: item });
               navigation.navigate('Dashboard');
             }}
           />
