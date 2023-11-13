@@ -29,4 +29,10 @@ export const endpoints = {
     create: '/enclosure/',
     update: '/enclosure/:id/',
   },
+  batch: {
+    list: '/batchs/',
+    detail: '/batchs/:id/',
+    create: '/batchs/',
+    update: '/batchs/:id/',
+  },
 };

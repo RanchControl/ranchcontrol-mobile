@@ -10,6 +10,7 @@ import Animals from '../../screens/Animals';
 import Home from '../../screens/Home';
 import Profile from '../../screens/Profile';
 import { ERole } from '../../utils/Enums';
+import { BatchStack } from './BatchStack';
 import { EnclosureStack } from './EnclosureStack';
 
 const BottomTab = createBottomTabNavigator<PrivateStackParamList>();
@@ -23,10 +24,12 @@ export const PrivateStack = () => {
       screenOptions={({ navigation }) => ({
         tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: colors.secondary500,
-        tabBarInactiveTintColor: colors.green700,
+        tabBarInactiveTintColor: colors.trueGray400,
         tabBarLabelStyle: {
-          color: navigation.isFocused() ? colors.primary700 : colors.green700,
-          fontFamily: navigation.isFocused()
+          color: navigation.isFocused()
+            ? colors.primary500
+            : colors.trueGray400,
+          fontWeight: navigation.isFocused()
             ? fontWeights.extrabold
             : fontWeights.normal,
         },
@@ -67,6 +70,17 @@ export const PrivateStack = () => {
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="BatchStack"
+        component={BatchStack}
+        options={{
+          title: 'Lote',
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="fence" size={24} color={color} />
           ),
         }}
       />
