@@ -22,5 +22,5 @@ interface BatchFormValues {
   observation: string;
   situation: string;
   earringStartNumber: string;
-  enclosureId: string;
+  enclosure: string;
 }

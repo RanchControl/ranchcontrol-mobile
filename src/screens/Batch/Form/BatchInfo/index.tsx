@@ -52,7 +52,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
       observation: '',
       situation: '',
       earringStartNumber: '',
-      enclosureId: '',
+      enclosure: '',
       ...initialValues,
     },
     validationSchema: yup.object().shape({
@@ -329,15 +329,15 @@ const BatchInfo: React.ForwardRefRenderFunction<
 
       <FormControl
         isRequired
-        isInvalid={!!formik.errors.enclosureId && formik.touched.enclosureId}
+        isInvalid={!!formik.errors.enclosure && formik.touched.enclosure}
         my={'$5'}
       >
         <FormControlLabel mb="$1">
-          <FormControlLabelText>Cargo</FormControlLabelText>
+          <FormControlLabelText>Recinto</FormControlLabelText>
         </FormControlLabel>
         <Select
-          selectedValue={formik.values.enclosureId}
-          onValueChange={formik.handleChange('enclosureId')}
+          selectedValue={formik.values.enclosure}
+          onValueChange={formik.handleChange('enclosure')}
         >
           <SelectTrigger variant="outline" size="md">
             <SelectInput placeholder="Select option" />
@@ -366,11 +366,11 @@ const BatchInfo: React.ForwardRefRenderFunction<
           </SelectPortal>
         </Select>
 
-        {formik.errors.enclosureId && formik.touched.enclosureId && (
+        {formik.errors.enclosure && formik.touched.enclosure && (
           <FormControlError>
             <FormControlErrorIcon as={AlertCircleIcon} />
             <FormControlErrorText>
-              {formik.errors.enclosureId}
+              {formik.errors.enclosure}
             </FormControlErrorText>
           </FormControlError>
         )}

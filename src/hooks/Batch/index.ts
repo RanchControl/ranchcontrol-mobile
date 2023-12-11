@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
 
+import moment from 'moment';
+
 import { endpoints, useApi } from '../../contexts/Api';
 import { useAuth } from '../../contexts/Auth';
 
@@ -8,13 +10,15 @@ export const useBatch = () => {
   const { appConfig } = useAuth();
 
   const generateBatchObject = useCallback((batch: BatchFormValues) => {
+    console.log(batch.bornDate);
     return {
       ...batch,
       age: Number(batch.age),
       animalQuantity: Number(batch.animalQuantity),
       earringStartNumber: Number(batch.earringStartNumber),
       wheightAverage: Number(batch.wheightAverage),
-      enclosureId: Number(batch.enclosureId),
+      enclosure: Number(batch.enclosure),
+      bornDate: moment(batch.bornDate, 'DD/MM/YYYY').toDate(),
     };
   }, []);
 
@@ -48,7 +52,6 @@ export const useBatch = () => {
         method: 'post',
         url: endpoints.batch.create,
         data: {
-          farmId: appConfig?.farm.id,
           ...generateBatchObject(data),
         },
       });
