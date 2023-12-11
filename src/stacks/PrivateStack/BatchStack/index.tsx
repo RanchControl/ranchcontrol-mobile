@@ -3,6 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { config } from '../../../config/gluestack-ui.config';
+import BatchCreate from '../../../screens/Batch/Create/index.';
 import BatchDetail from '../../../screens/Batch/Detail';
 import BatchList from '../../../screens/Batch/List';
 
@@ -35,6 +36,20 @@ export const BatchStack = () => {
         component={BatchDetail}
         options={{
           title: 'Detalhes do lote',
+        }}
+      />
+      {/* <Stack.Screen
+        name="BatchEdit"
+        component={BatchDetail}
+        options={{
+          title: 'Editar lote',
+        }}
+      /> */}
+      <Stack.Screen
+        name="BatchCreate"
+        component={BatchCreate}
+        options={{
+          title: 'Cadastrar lote',
         }}
       />
     </Stack.Navigator>

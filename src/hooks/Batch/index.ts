@@ -7,6 +7,17 @@ export const useBatch = () => {
   const { request } = useApi();
   const { appConfig } = useAuth();
 
+  const generateBatchObject = useCallback((batch: BatchFormValues) => {
+    return {
+      ...batch,
+      age: Number(batch.age),
+      animalQuantity: Number(batch.animalQuantity),
+      earringStartNumber: Number(batch.earringStartNumber),
+      wheightAverage: Number(batch.wheightAverage),
+      enclosureId: Number(batch.enclosureId),
+    };
+  }, []);
+
   const listBatch = useCallback(async () => {
     const response = await request<Batch[]>({
       method: 'get',
@@ -38,7 +49,7 @@ export const useBatch = () => {
         url: endpoints.batch.create,
         data: {
           farmId: appConfig?.farm.id,
-          ...data,
+          ...generateBatchObject(data),
         },
       });
 

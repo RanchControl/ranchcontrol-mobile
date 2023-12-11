@@ -14,13 +14,13 @@ interface Batch {
 
 interface BatchFormValues {
   name: string;
-  wheightAverage: number;
-  animalQuantity: number;
+  wheightAverage: string;
+  animalQuantity: string;
   breed: string;
-  age: number;
+  age: string;
   bornDate: string;
   observation: string;
   situation: string;
-  earringStartNumber: number;
-  enclosureId: number;
+  earringStartNumber: string;
+  enclosureId: string;
 }
