@@ -1,15 +1,14 @@
 import React from 'react';
 
 import { Box, HStack, Heading, VStack, Text } from '@gluestack-ui/themed';
-import { cnpj } from 'cpf-cnpj-validator';
 import { TouchableOpacity } from 'react-native';
 
 interface CardAnimalProps {
-  farm?: Farm;
+  animal?: Animal;
   onPress?: () => void;
 }
 
-const CardAnimal: React.FC<CardAnimalProps> = ({ farm, onPress }) => {
+const CardAnimal: React.FC<CardAnimalProps> = ({ animal, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <Box
@@ -22,20 +21,20 @@ const CardAnimal: React.FC<CardAnimalProps> = ({ farm, onPress }) => {
       >
         <VStack px="$6" pt="$4" pb="$6">
           <Heading textTransform="capitalize" size="sm">
-            farm.name
+            {animal.name}
           </Heading>
           <HStack mt="$1.5">
             <Text fontWeight="$semibold" fontSize="$xs">
               CNPJ:{' '}
             </Text>
-            {/* <Text fontSize="$xs">{cnpj.format(farm.cnpj)}</Text> */}
+            {/* <Text fontSize="$xs">{cnpj.format(animal.cnpj)}</Text> */}
           </HStack>
           <HStack mt="$1.5">
             <Text fontWeight="$semibold" fontSize="$xs">
               Data de criação:{' '}
             </Text>
             <Text fontSize="$xs">
-              {/* {new Date(farm.createdAt).toLocaleDateString('pt-BR')} */}
+              {/* {new Date(animal.createdAt).toLocaleDateString('pt-BR')} */}
             </Text>
           </HStack>
         </VStack>
