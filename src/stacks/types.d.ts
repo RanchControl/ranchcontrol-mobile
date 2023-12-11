@@ -18,7 +18,8 @@ type PrivateStackParamList = {
   Profile: undefined;
   AdminConfig: undefined;
   Animal: undefined;
-  EnclosureStack?: { screen: keyof PublicStackParamList };
+  EnclosureStack?: { screen: keyof EnclosureStackParamList };
+  BatchStack?: { screen: keyof BatchStackParamList };
   AuthStack?: { screen: keyof PublicStackParamList };
 };
 
@@ -28,4 +29,12 @@ type EnclosureStackParamList = {
   EnclosureEdit: { enclosure: Enclosure };
   EnclosureCreate: undefined;
   EnclosureStack?: { screen: keyof EnclosureStackParamList };
+};
+
+type BatchStackParamList = {
+  BatchList: undefined;
+  BatchDetail: { batchId: number };
+  BatchEdit: { batch: Batch };
+  BatchCreate: undefined;
+  BatchStack?: { screen: keyof BatchStackParamList };
 };
