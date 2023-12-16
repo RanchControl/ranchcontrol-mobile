@@ -2,6 +2,7 @@ import React, { useMemo, useRef } from 'react';
 
 import { useToast } from '@gluestack-ui/themed';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 
 import AlertToast from '../../../components/AlertToast';
@@ -33,6 +34,14 @@ const BatchCreate: React.FC<BatchCreateProps> = ({ navigation }) => {
         });
         queryClient.invalidateQueries('batchs');
         navigation.goBack();
+      },
+      onError: (error: AxiosError<{ message: string; statusCode: number }>) => {
+        toast.show({
+          placement: 'top',
+          render: () => (
+            <AlertToast status={'error'} title={error.response.data.message} />
+          ),
+        });
       },
     }
   );

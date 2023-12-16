@@ -162,7 +162,7 @@ const BatchDetail: React.FC<BatchDetailProps> = ({ navigation, route }) => {
                 <Text fontWeight="$semibold" fontSize="$xs">
                   Média de peso:{' '}
                 </Text>
-                <Text fontSize="$xs">{fetchBatch.data.wheightAverage}</Text>
+                <Text fontSize="$xs">{fetchBatch.data.weightAverage}</Text>
               </HStack>
             </VStack>
           </HStack>

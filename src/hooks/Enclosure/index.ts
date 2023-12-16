@@ -37,7 +37,7 @@ export const useEnclosure = () => {
         method: 'post',
         url: endpoints.enclosure.create,
         data: {
-          farmId: appConfig?.farm.id,
+          farm: appConfig?.farm.id,
           ...data,
         },
       });

@@ -44,7 +44,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
   const formik = useFormik<BatchFormValues>({
     initialValues: {
       name: '',
-      wheightAverage: '',
+      weightAverage: '',
       animalQuantity: '',
       breed: '',
       age: '',
@@ -57,7 +57,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
     },
     validationSchema: yup.object().shape({
       name: yup.string().required(Errors.required),
-      wheightAverage: yup.string().required(Errors.required),
+      weightAverage: yup.string().required(Errors.required),
     }),
     onSubmit: onFinish,
   });
@@ -99,7 +99,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
 
       <FormControl
         isRequired
-        isInvalid={!!formik.touched && !!formik.errors.wheightAverage}
+        isInvalid={!!formik.touched && !!formik.errors.weightAverage}
         mt={'$5'}
       >
         <FormControlLabel>
@@ -108,25 +108,25 @@ const BatchInfo: React.ForwardRefRenderFunction<
         <Input>
           <InputField
             placeholder="Ex: 500 KG"
-            value={formik.values.wheightAverage}
-            onChangeText={formik.handleChange('wheightAverage')}
-            onBlur={formik.handleBlur('wheightAverage')}
+            value={formik.values.weightAverage}
+            onChangeText={formik.handleChange('weightAverage')}
+            onBlur={formik.handleBlur('weightAverage')}
             keyboardType="numeric"
           />
         </Input>
 
-        {formik.touched.wheightAverage && formik.errors.wheightAverage && (
+        {formik.touched.weightAverage && formik.errors.weightAverage && (
           <FormControlError>
             <FormControlErrorIcon as={AlertCircleIcon} />
             <FormControlErrorText>
-              {formik.errors.wheightAverage}
+              {formik.errors.weightAverage}
             </FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>
       <FormControl
         isRequired
-        isInvalid={!!formik.touched && !!formik.errors.wheightAverage}
+        isInvalid={!!formik.touched && !!formik.errors.weightAverage}
         mt={'$5'}
       >
         <FormControlLabel>
@@ -155,7 +155,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
       </FormControl>
       <FormControl
         isRequired
-        isInvalid={!!formik.touched && !!formik.errors.wheightAverage}
+        isInvalid={!!formik.touched && !!formik.errors.weightAverage}
         mt={'$5'}
       >
         <FormControlLabel>
@@ -181,7 +181,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
       </FormControl>
       <FormControl
         isRequired
-        isInvalid={!!formik.touched && !!formik.errors.wheightAverage}
+        isInvalid={!!formik.touched && !!formik.errors.weightAverage}
         mt={'$5'}
       >
         <FormControlLabel>
@@ -208,7 +208,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
       </FormControl>
       <FormControl
         isRequired
-        isInvalid={!!formik.touched && !!formik.errors.wheightAverage}
+        isInvalid={!!formik.touched && !!formik.errors.weightAverage}
         mt={'$5'}
       >
         <FormControlLabel>
@@ -242,7 +242,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
       </FormControl>
       <FormControl
         isRequired
-        isInvalid={!!formik.touched && !!formik.errors.wheightAverage}
+        isInvalid={!!formik.touched && !!formik.errors.weightAverage}
         mt={'$5'}
       >
         <FormControlLabel>
@@ -270,7 +270,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
       </FormControl>
       <FormControl
         isRequired
-        isInvalid={!!formik.touched && !!formik.errors.wheightAverage}
+        isInvalid={!!formik.touched && !!formik.errors.weightAverage}
         mt={'$5'}
       >
         <FormControlLabel>
@@ -298,7 +298,7 @@ const BatchInfo: React.ForwardRefRenderFunction<
       </FormControl>
       <FormControl
         isRequired
-        isInvalid={!!formik.touched && !!formik.errors.wheightAverage}
+        isInvalid={!!formik.touched && !!formik.errors.weightAverage}
         mt={'$5'}
       >
         <FormControlLabel>

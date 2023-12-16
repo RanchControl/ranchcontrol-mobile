@@ -93,7 +93,7 @@ const CardBatch: React.FC<CardBatchProps> = ({ batch, onPress }) => {
               <Text fontWeight="$semibold" fontSize="$xs">
                 Média de peso:{' '}
               </Text>
-              <Text fontSize="$xs">{batch.wheightAverage}</Text>
+              <Text fontSize="$xs">{batch.weightAverage}</Text>
             </HStack>
           </VStack>
         </HStack>

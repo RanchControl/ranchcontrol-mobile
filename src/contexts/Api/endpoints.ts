@@ -36,9 +36,9 @@ export const endpoints = {
     update: '/batchs/:id/',
   },
   animal: {
-    list: '/animal/',
-    detail: '/animal/:id/',
-    create: '/animal/',
-    update: '/animal/:id/',
+    list: '/animals/',
+    detail: '/animals/:id/',
+    create: '/animals/',
+    update: '/animals/:id/',
   },
 };
