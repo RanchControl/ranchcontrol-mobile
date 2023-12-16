@@ -28,7 +28,7 @@ import { useAnimal } from '../../../hooks';
 import CardAnimal from '../CardAnimal';
 
 type AnimalListProps = NativeStackScreenProps<
-  AnimalsStackParamList,
+  AnimalStackParamList,
   'AnimalList'
 >;
 
@@ -36,7 +36,7 @@ const AnimalList: React.FC<AnimalListProps> = ({ navigation }) => {
   const { listAnimals } = useAnimal();
   const toast = useToast();
 
-  const fetchAnimals = useQuery(['batchs'], listAnimals, {
+  const fetchAnimals = useQuery(['animals'], listAnimals, {
     onError: () => {
       toast.show({
         placement: 'top',
@@ -68,7 +68,7 @@ const AnimalList: React.FC<AnimalListProps> = ({ navigation }) => {
               width={'$1/2'}
               color="$textLight600"
             >
-              Lista de lotes
+              Lista de animais
             </Heading>
             <HStack width={'$full'} justifyContent="space-between" my={'$3'}>
               <Input variant="outline" width={'$3/4'}>

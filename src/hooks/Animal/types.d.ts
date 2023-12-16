@@ -17,7 +17,7 @@ interface AnimalFormValues {
   bornDate: string;
   bornWheight: string;
   entryDate: string;
-  entryWheight: number;
+  entryWheight: string;
   weaningDate: string;
   fitnessDate: string;
   type: string;

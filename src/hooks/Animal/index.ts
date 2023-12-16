@@ -1,11 +1,27 @@
 import { useCallback } from 'react';
 
+import moment from 'moment';
+
 import { endpoints, useApi } from '../../contexts/Api';
 import { useAuth } from '../../contexts/Auth';
 
 export const useAnimal = () => {
   const { request } = useApi();
   const { appConfig } = useAuth();
+
+  const generateAnimalObject = useCallback((values: AnimalFormValues) => {
+    return {
+      ...values,
+      bornDate: moment(values.bornDate, 'DD/MM/YYYY').toDate(),
+      entryDate: moment(values.entryDate, 'DD/MM/YYYY').toDate(),
+      weaningDate: moment(values.weaningDate, 'DD/MM/YYYY').toDate(),
+      fitnessDate: moment(values.fitnessDate, 'DD/MM/YYYY').toDate(),
+      number: Number(values.number),
+      bornWheight: Number(values.bornWheight),
+      entryWheight: Number(values.entryWheight),
+      weight: Number(values.weight),
+    };
+  }, []);
 
   const listAnimals = useCallback(async () => {
     const response = await request<Animal[]>({
@@ -23,7 +39,7 @@ export const useAnimal = () => {
     async (id: number) => {
       const response = await request<Animal>({
         method: 'get',
-        url: endpoints.enclosure.detail.replace(':id', id.toString()),
+        url: endpoints.animal.detail.replace(':id', id.toString()),
       });
 
       return response.data;
@@ -35,11 +51,8 @@ export const useAnimal = () => {
     async (data: AnimalFormValues) => {
       const response = await request<Animal>({
         method: 'post',
-        url: endpoints.enclosure.create,
-        data: {
-          farmId: appConfig?.farm.id,
-          ...data,
-        },
+        url: endpoints.animal.create,
+        data: generateAnimalObject(data),
       });
 
       return response.data;
@@ -51,7 +64,7 @@ export const useAnimal = () => {
     async (id: number, data: AnimalFormValues) => {
       const response = await request<Animal>({
         method: 'patch',
-        url: endpoints.enclosure.update.replace(':id', id.toString()),
+        url: endpoints.animal.update.replace(':id', id.toString()),
         data,
       });
 
@@ -64,7 +77,7 @@ export const useAnimal = () => {
     async (id: number) => {
       const response = await request<Animal>({
         method: 'delete',
-        url: endpoints.enclosure.update.replace(':id', id.toString()),
+        url: endpoints.animal.update.replace(':id', id.toString()),
       });
 
       return response.data;

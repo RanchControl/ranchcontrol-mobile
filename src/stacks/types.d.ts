@@ -39,10 +39,10 @@ type BatchStackParamList = {
   BatchStack?: { screen: keyof BatchStackParamList };
 };
 
-type AnimalsStackParamList = {
+type AnimalStackParamList = {
   AnimalList: undefined;
   AnimalDetail: { animalId: number };
   AnimalEdit: { animal: Animal };
   AnimalCreate: undefined;
-  AnimalStack?: { screen: keyof AnimalsStackParamList };
+  AnimalStack?: { screen: keyof AnimalStackParamList };
 };
