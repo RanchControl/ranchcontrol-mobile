@@ -19,25 +19,74 @@ const CardAnimal: React.FC<CardAnimalProps> = ({ animal, onPress }) => {
         my="$2"
         width={'100%'}
       >
-        <VStack px="$6" pt="$4" pb="$6">
-          <Heading textTransform="capitalize" size="sm">
-            {animal.name}
-          </Heading>
-          <HStack mt="$1.5">
-            <Text fontWeight="$semibold" fontSize="$xs">
-              CNPJ:{' '}
-            </Text>
-            {/* <Text fontSize="$xs">{cnpj.format(animal.cnpj)}</Text> */}
-          </HStack>
-          <HStack mt="$1.5">
-            <Text fontWeight="$semibold" fontSize="$xs">
-              Data de criação:{' '}
-            </Text>
-            <Text fontSize="$xs">
-              {/* {new Date(animal.createdAt).toLocaleDateString('pt-BR')} */}
-            </Text>
-          </HStack>
-        </VStack>
+        <Heading
+          underline
+          mx="$4"
+          mt={'$4'}
+          textTransform="capitalize"
+          size="md"
+        >
+          {animal.name}
+        </Heading>
+        <HStack px="$4" pb="$4">
+          <VStack width={'$1/2'}>
+            <HStack mt="$1.5">
+              <Text fontWeight="$semibold" fontSize="$xs">
+                Número:{' '}
+              </Text>
+              <Text fontSize="$xs">{animal.number}</Text>
+            </HStack>
+
+            <HStack mt="$1.5">
+              <Text fontWeight="$semibold" fontSize="$xs">
+                Raça:{' '}
+              </Text>
+              <Text fontSize="$xs">{animal.breed}</Text>
+            </HStack>
+            <HStack mt="$1.5">
+              <Text fontWeight="$semibold" fontSize="$xs">
+                Peso:{' '}
+              </Text>
+              <Text fontSize="$xs">{animal.weight}</Text>
+            </HStack>
+            <HStack mt="$1.5">
+              <Text fontWeight="$semibold" fontSize="$xs">
+                Tipo:{' '}
+              </Text>
+              <Text fontSize="$xs">{animal.type}</Text>
+            </HStack>
+          </VStack>
+          <VStack width={'$1/2'}>
+            <HStack mt="$1.5">
+              <Text fontWeight="$semibold" fontSize="$xs">
+                Data de entrada:{' '}
+              </Text>
+              <Text fontSize="$xs">
+                {new Date(animal.entryDate).toLocaleDateString('pt-BR')}
+              </Text>
+            </HStack>
+            <HStack mt="$1.5">
+              <Text fontWeight="$semibold" fontSize="$xs">
+                Stataus:{' '}
+              </Text>
+              <Text textTransform="capitalize" fontSize="$xs">
+                {animal.status}
+              </Text>
+            </HStack>
+            <HStack mt="$1.5">
+              <Text fontWeight="$semibold" fontSize="$xs">
+                Lote:{' '}
+              </Text>
+              <Text fontSize="$xs">{animal.batchs.name}</Text>
+            </HStack>
+            <HStack mt="$1.5">
+              <Text fontWeight="$semibold" fontSize="$xs">
+                Categoria:{' '}
+              </Text>
+              <Text fontSize="$xs">{animal.category}</Text>
+            </HStack>
+          </VStack>
+        </HStack>
       </Box>
     </TouchableOpacity>
   );

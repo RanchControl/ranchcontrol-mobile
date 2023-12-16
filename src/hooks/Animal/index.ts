@@ -40,6 +40,9 @@ export const useAnimal = () => {
       const response = await request<Animal>({
         method: 'get',
         url: endpoints.animal.detail.replace(':id', id.toString()),
+        params: {
+          farm: appConfig?.farm.id,
+        },
       });
 
       return response.data;
@@ -52,6 +55,9 @@ export const useAnimal = () => {
       const response = await request<Animal>({
         method: 'post',
         url: endpoints.animal.create,
+        params: {
+          farm: appConfig?.farm.id,
+        },
         data: generateAnimalObject(data),
       });
 

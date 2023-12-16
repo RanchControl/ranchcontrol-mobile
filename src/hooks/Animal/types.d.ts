@@ -1,12 +1,28 @@
 interface Animal {
   id: number;
-  userId: number;
   name: string;
-  cnpj: string;
-  address: string;
-  createdAt: Date;
-  updateAt: Date;
-  deletedAt: Date;
+  number: number;
+  sex: string;
+  breed: string;
+  bornDate: string;
+  bornWheight: number;
+  entryDate: string;
+  entryWheight: number;
+  weaningDate: string;
+  fitnessDate: string;
+  type: string;
+  weight: number;
+  status: string;
+  category: string;
+  prefix: string;
+  suffix: string;
+  enclosure: number;
+  batch: number;
+  createdAt: string;
+  updateAt: string;
+  deletedAt: null;
+  enclosures: Enclosure;
+  batchs: Batch;
 }
 
 interface AnimalFormValues {

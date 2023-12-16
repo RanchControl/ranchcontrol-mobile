@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { config } from '../../../config/gluestack-ui.config';
 import AnimalCreate from '../../../screens/Animals/AnimalCreate';
+import AnimalDetail from '../../../screens/Animals/AnimalDetail';
 import AnimalList from '../../../screens/Animals/AnimalList';
 
 const Stack = createNativeStackNavigator<AnimalStackParamList>();
@@ -35,6 +36,13 @@ export const AnimalStack = () => {
         component={AnimalCreate}
         options={{
           title: 'Criar animal',
+        }}
+      />
+      <Stack.Screen
+        name="AnimalDetail"
+        component={AnimalDetail}
+        options={{
+          title: 'Detalhes do animal',
         }}
       />
       {/*       <Stack.Screen

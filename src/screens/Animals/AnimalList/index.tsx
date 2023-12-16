@@ -1,26 +1,27 @@
 import React from 'react';
 
 import {
+  AddIcon,
   Box,
-  HStack,
-  Input,
-  InputSlot,
-  InputIcon,
-  SearchIcon,
-  InputField,
-  ButtonIcon,
-  MenuIcon,
   Button,
-  useToast,
-  Heading,
-  Spinner,
+  ButtonIcon,
   Fab,
   FabIcon,
-  AddIcon,
+  HStack,
+  Heading,
+  Input,
+  InputField,
+  InputIcon,
+  InputSlot,
+  MenuIcon,
+  SearchIcon,
+  Spinner,
   Text,
+  config,
+  useToast,
 } from '@gluestack-ui/themed';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { useQuery } from 'react-query';
 
 import AlertToast from '../../../components/AlertToast';
@@ -60,6 +61,14 @@ const AnimalList: React.FC<AnimalListProps> = ({ navigation }) => {
         data={fetchAnimals.data}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id.toString()}
+        refreshControl={
+          <RefreshControl
+            refreshing={fetchAnimals.isRefetching}
+            onRefresh={fetchAnimals.refetch}
+            colors={[config.theme.tokens.colors.primary500]} // Android only
+            tintColor={config.theme.tokens.colors.primary500} // iOS only
+          />
+        }
         ListHeaderComponent={() => (
           <>
             <Heading
@@ -86,7 +95,9 @@ const AnimalList: React.FC<AnimalListProps> = ({ navigation }) => {
         renderItem={({ item }) => (
           <CardAnimal
             animal={item}
-            onPress={() => navigation.navigate('AnimalDetail')}
+            onPress={() =>
+              navigation.navigate('AnimalDetail', { animalId: item.id })
+            }
           />
         )}
         ListEmptyComponent={renderEmptyList}
