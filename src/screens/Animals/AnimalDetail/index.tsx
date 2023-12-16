@@ -2,44 +2,44 @@ import React from 'react';
 
 import {
   Box,
-  Button,
   ButtonIcon,
   ButtonText,
   EditIcon,
   HStack,
   Heading,
   Spinner,
-  Text,
   TrashIcon,
   VStack,
   useToast,
+  Button,
+  Text,
 } from '@gluestack-ui/themed';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import AlertToast from '../../../components/AlertToast';
-import { useBatch, useToggle } from '../../../hooks';
+import { useAnimal, useToggle } from '../../../hooks';
 import DeleteDialog from './DeleteDialog';
 
-type BatchDetailProps = NativeStackScreenProps<
-  BatchStackParamList,
-  'BatchDetail'
+type AnimalDetailProps = NativeStackScreenProps<
+  AnimalStackParamList,
+  'AnimalDetail'
 >;
 
-const BatchDetail: React.FC<BatchDetailProps> = ({ navigation, route }) => {
+const AnimalDetail: React.FC<AnimalDetailProps> = ({ navigation, route }) => {
   const toast = useToast();
   const deleteModal = useToggle();
-  const { getBatch, deleteBatch } = useBatch();
+  const { getAnimal, deleteAnimal } = useAnimal();
   const queryClient = useQueryClient();
 
-  const fetchBatch = useQuery(
-    ['batchs', route.params.batchId],
-    () => getBatch(route.params.batchId),
+  const fetchAnimal = useQuery(
+    ['animals', route.params.animalId],
+    () => getAnimal(route.params.animalId),
     {
       onError: () => {
         toast.show({
           render: () => (
-            <AlertToast status={'error'} title={'Erro ao carregar o lote'} />
+            <AlertToast status={'error'} title={'Erro ao carregar o animal'} />
           ),
         });
         navigation.goBack();
@@ -47,19 +47,19 @@ const BatchDetail: React.FC<BatchDetailProps> = ({ navigation, route }) => {
     }
   );
 
-  const deleteBatchRequest = useMutation(
-    () => deleteBatch(route.params.batchId),
+  const deleteAnimalRequest = useMutation(
+    () => deleteAnimal(route.params.animalId),
     {
       onSuccess: () => {
         toast.show({
           render: () => (
             <AlertToast
               status={'success'}
-              title={'Lote deletado com sucesso'}
+              title={'Animal deletado com sucesso'}
             />
           ),
         });
-        queryClient.invalidateQueries('batchs');
+        queryClient.invalidateQueries('animals');
         navigation.goBack();
       },
       onError: () => {
@@ -81,7 +81,7 @@ const BatchDetail: React.FC<BatchDetailProps> = ({ navigation, route }) => {
       p={'$5'}
       justifyContent="space-between"
     >
-      {fetchBatch.isLoading ? (
+      {fetchAnimal.isLoading ? (
         <Spinner />
       ) : (
         <Box
@@ -92,77 +92,73 @@ const BatchDetail: React.FC<BatchDetailProps> = ({ navigation, route }) => {
           my="$5"
           width={'100%'}
         >
-          <Heading mx="$4" mt={'$4'} textTransform="capitalize" size="md">
-            {fetchBatch.data.name}
+          <Heading
+            underline
+            mx="$4"
+            mt={'$4'}
+            textTransform="capitalize"
+            size="md"
+          >
+            {fetchAnimal.data.name}
           </Heading>
           <HStack px="$4" pb="$4">
             <VStack width={'$1/2'}>
               <HStack mt="$1.5">
                 <Text fontWeight="$semibold" fontSize="$xs">
-                  Situação:{' '}
+                  Número:{' '}
                 </Text>
-                <Text textTransform="capitalize" fontSize="$xs">
-                  {fetchBatch.data.situation}
-                </Text>
+                <Text fontSize="$xs">{fetchAnimal.data.number}</Text>
               </HStack>
-              <HStack mt="$1.5">
-                <Text fontWeight="$semibold" fontSize="$xs">
-                  Recinto:{' '}
-                </Text>
-                <Text fontSize="$xs">{fetchBatch.data.enclosureId}</Text>
-              </HStack>
+
               <HStack mt="$1.5">
                 <Text fontWeight="$semibold" fontSize="$xs">
                   Raça:{' '}
                 </Text>
-                <Text fontSize="$xs">{fetchBatch.data.breed}</Text>
+                <Text fontSize="$xs">{fetchAnimal.data.breed}</Text>
               </HStack>
               <HStack mt="$1.5">
                 <Text fontWeight="$semibold" fontSize="$xs">
-                  Nº do brinco:{' '}
+                  Peso:{' '}
                 </Text>
-                <Text fontSize="$xs">{fetchBatch.data.earringStartNumber}</Text>
+                <Text fontSize="$xs">{fetchAnimal.data.weight}</Text>
               </HStack>
               <HStack mt="$1.5">
                 <Text fontWeight="$semibold" fontSize="$xs">
-                  Observação:{' '}
+                  Tipo:{' '}
                 </Text>
-                <Text isTruncated fontSize="$xs">
-                  {fetchBatch.data.observation +
-                    'asdasdassssssssssssssssssssssssssssssssssssssssssssda'}
-                </Text>
+                <Text fontSize="$xs">{fetchAnimal.data.type}</Text>
               </HStack>
             </VStack>
             <VStack width={'$1/2'}>
               <HStack mt="$1.5">
                 <Text fontWeight="$semibold" fontSize="$xs">
-                  Idade:{' '}
-                </Text>
-                <Text textTransform="capitalize" fontSize="$xs">
-                  {fetchBatch.data.age}
-                </Text>
-              </HStack>
-              <HStack mt="$1.5">
-                <Text fontWeight="$semibold" fontSize="$xs">
-                  Quantitade:{' '}
-                </Text>
-                <Text fontSize="$xs">{fetchBatch.data.animalQuantity}</Text>
-              </HStack>
-              <HStack mt="$1.5">
-                <Text fontWeight="$semibold" fontSize="$xs">
-                  Nascimento:{' '}
+                  Data de entrada:{' '}
                 </Text>
                 <Text fontSize="$xs">
-                  {new Date(fetchBatch.data.bornDate).toLocaleDateString(
+                  {new Date(fetchAnimal.data.entryDate).toLocaleDateString(
                     'pt-BR'
                   )}
                 </Text>
               </HStack>
               <HStack mt="$1.5">
                 <Text fontWeight="$semibold" fontSize="$xs">
-                  Média de peso:{' '}
+                  Stataus:{' '}
                 </Text>
-                <Text fontSize="$xs">{fetchBatch.data.weightAverage}</Text>
+                <Text textTransform="capitalize" fontSize="$xs">
+                  {fetchAnimal.data.status}
+                </Text>
+              </HStack>
+              <HStack mt="$1.5">
+                <Text fontWeight="$semibold" fontSize="$xs">
+                  Lote:{' '}
+                </Text>
+                <Text fontSize="$xs">{fetchAnimal.data.batchs.name}</Text>
+              </HStack>
+              <HStack mt="$1.5">
+                <Text fontWeight="$semibold" fontSize="$xs">
+                  Categoria:{' '}
+                </Text>
+                <Text fontSize="$xs">{fetchAnimal.data.category}</Text>
               </HStack>
             </VStack>
           </HStack>
@@ -172,8 +168,8 @@ const BatchDetail: React.FC<BatchDetailProps> = ({ navigation, route }) => {
         <Button
           size="lg"
           onPress={() =>
-            navigation.navigate('BatchEdit', {
-              batch: fetchBatch.data,
+            navigation.navigate('AnimalEdit', {
+              animal: fetchAnimal.data,
             })
           }
         >
@@ -195,11 +191,11 @@ const BatchDetail: React.FC<BatchDetailProps> = ({ navigation, route }) => {
           onToggle={deleteModal.onToggle}
           title={'Deletar lote'}
           description={'Tem certeza que deseja deletar este lote?'}
-          onDelete={deleteBatchRequest}
+          onDelete={deleteAnimalRequest}
         />
       </Box>
     </VStack>
   );
 };
 
-export default BatchDetail;
+export default AnimalDetail;

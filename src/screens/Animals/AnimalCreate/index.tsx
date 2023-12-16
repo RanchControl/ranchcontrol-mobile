@@ -7,32 +7,32 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import AlertToast from '../../../components/AlertToast';
 import BaseForm from '../../../components/BaseForm';
-import { useBatch } from '../../../hooks';
-import BatchInfo from '../Form/BatchInfo';
+import { useAnimal } from '../../../hooks';
+import AnimalInfo from '../Form/AnimalInfo';
 
-type BatchCreateProps = NativeStackScreenProps<
-  BatchStackParamList,
-  'BatchCreate'
+type AnimalCreateProps = NativeStackScreenProps<
+  AnimalStackParamList,
+  'AnimalCreate'
 >;
 
-const BatchCreate: React.FC<BatchCreateProps> = ({ navigation }) => {
-  const batchInfoStepRef = useRef<IFormStepRef>(null);
+const AnimalCreate: React.FC<AnimalCreateProps> = ({ navigation }) => {
+  const animalInfoStepRef = useRef<IFormStepRef>(null);
 
-  const { createBatch } = useBatch();
+  const { createAnimal } = useAnimal();
   const toast = useToast();
   const queryClient = useQueryClient();
 
-  const batchRequest = useMutation(
-    async (values: BatchFormValues) => createBatch(values),
+  const animalRequest = useMutation(
+    async (values: AnimalFormValues) => createAnimal(values),
     {
       onSuccess: () => {
         toast.show({
           placement: 'top',
           render: () => (
-            <AlertToast status={'success'} title={'Lote cadastrado'} />
+            <AlertToast status={'success'} title={'Animal cadastrado'} />
           ),
         });
-        queryClient.invalidateQueries('batchs');
+        queryClient.invalidateQueries('animals');
         navigation.goBack();
       },
       onError: (error: AxiosError<{ message: string; statusCode: number }>) => {
@@ -50,8 +50,8 @@ const BatchCreate: React.FC<BatchCreateProps> = ({ navigation }) => {
     const data: Array<IStep> = [
       {
         title: 'Cadastro de lote',
-        ref: batchInfoStepRef,
-        component: BatchInfo,
+        ref: animalInfoStepRef,
+        component: AnimalInfo,
       },
     ];
 
@@ -59,8 +59,8 @@ const BatchCreate: React.FC<BatchCreateProps> = ({ navigation }) => {
   }, []);
 
   return (
-    <BaseForm steps={steps} createRequest={batchRequest} title="Cadastro" />
+    <BaseForm steps={steps} createRequest={animalRequest} title="Cadastro" />
   );
 };
 
-export default BatchCreate;
+export default AnimalCreate;

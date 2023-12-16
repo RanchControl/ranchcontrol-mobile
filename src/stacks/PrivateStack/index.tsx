@@ -6,10 +6,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { config } from '../../config/gluestack-ui.config';
 import { useAuth } from '../../contexts/Auth';
 import AdminConfig from '../../screens/AdminConfig';
-import Animals from '../../screens/Animals';
 import Home from '../../screens/Home';
 import Profile from '../../screens/Profile';
 import { ERole } from '../../utils/Enums';
+import { AnimalStack } from './AnimalsStack';
 import { BatchStack } from './BatchStack';
 import { EnclosureStack } from './EnclosureStack';
 
@@ -85,10 +85,11 @@ export const PrivateStack = () => {
         }}
       />
       <BottomTab.Screen
-        name="Animal"
-        component={Animals}
+        name="AnimalStack"
+        component={AnimalStack}
         options={{
           title: 'Animais',
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="cow" size={24} color={color} />
           ),

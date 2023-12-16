@@ -2,7 +2,7 @@ interface Batch {
   id: number;
   enclosureId: number;
   name: string;
-  wheightAverage: number;
+  weightAverage: number;
   animalQuantity: number;
   earringStartNumber: number;
   breed: string;
@@ -14,7 +14,7 @@ interface Batch {
 
 interface BatchFormValues {
   name: string;
-  wheightAverage: string;
+  weightAverage: string;
   animalQuantity: string;
   breed: string;
   age: string;

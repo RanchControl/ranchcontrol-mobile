@@ -17,7 +17,7 @@ type PrivateStackParamList = {
   Dashboard: undefined;
   Profile: undefined;
   AdminConfig: undefined;
-  Animal: undefined;
+  AnimalStack: undefined;
   EnclosureStack?: { screen: keyof EnclosureStackParamList };
   BatchStack?: { screen: keyof BatchStackParamList };
   AuthStack?: { screen: keyof PublicStackParamList };
@@ -37,4 +37,12 @@ type BatchStackParamList = {
   BatchEdit: { batch: Batch };
   BatchCreate: undefined;
   BatchStack?: { screen: keyof BatchStackParamList };
+};
+
+type AnimalStackParamList = {
+  AnimalList: undefined;
+  AnimalDetail: { animalId: number };
+  AnimalEdit: { animal: Animal };
+  AnimalCreate: undefined;
+  AnimalStack?: { screen: keyof AnimalStackParamList };
 };

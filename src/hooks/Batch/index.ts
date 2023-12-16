@@ -16,7 +16,7 @@ export const useBatch = () => {
       age: Number(batch.age),
       animalQuantity: Number(batch.animalQuantity),
       earringStartNumber: Number(batch.earringStartNumber),
-      wheightAverage: Number(batch.wheightAverage),
+      weightAverage: Number(batch.weightAverage),
       enclosure: Number(batch.enclosure),
       bornDate: moment(batch.bornDate, 'DD/MM/YYYY').toDate(),
     };
