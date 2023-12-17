@@ -1,25 +1,4 @@
 {
-  "compilerOptions": {
-    "types": ["styled-components-react-native"],
-    "plugins": [
-      {
-        "name": "typescript-styled-plugin",
-        "lint": {
-          "validProperties": "shadow-color,shadow-opacity,shadow-offset"
-        }
-      }
-    ]
-  },
-  "baseUrl": "./src",
-  "paths": {
-    "@assets/*": ["assets/*"],
-    "@components/*": ["components/*"],
-    "@contexts/*": ["contexts/*"],
-    "@hooks": ["hooks"],
-    "@screens/*": ["screens/*"],
-    "@stacks/*": ["stacks/*"],
-    "@themes/*": ["themes/*"],
-    "@utils": ["utils"]
-  },
+  "compilerOptions": {},
   "extends": "expo/tsconfig.base"
 }

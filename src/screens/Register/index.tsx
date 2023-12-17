@@ -1,20 +1,37 @@
 import React from 'react';
 
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useFormik } from 'formik';
 import {
+  Box,
   Button,
   Center,
-  CheckIcon,
-  Container,
   FormControl,
-  Image,
   Input,
   Select,
   VStack,
-  WarningOutlineIcon,
+  Image,
+  InputField,
+  AlertCircleIcon,
+  FormControlError,
+  FormControlErrorIcon,
+  FormControlErrorText,
   useToast,
-} from 'native-base';
+  FormControlLabel,
+  FormControlLabelText,
+  ButtonText,
+  SelectItem,
+  ChevronDownIcon,
+  Icon,
+  SelectBackdrop,
+  SelectContent,
+  SelectDragIndicator,
+  SelectDragIndicatorWrapper,
+  SelectIcon,
+  SelectInput,
+  SelectPortal,
+  SelectTrigger,
+} from '@gluestack-ui/themed';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useFormik } from 'formik';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -39,9 +56,6 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
     {
       onSuccess: () => {
         toast.show({
-          title: 'Usuário cadastrado com sucesso',
-          variant: 'solid',
-          duration: 3000,
           render: () => (
             <AlertToast
               status="success"
@@ -53,7 +67,7 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
       },
       onError: () => {
         toast.show({
-          duration: 3000,
+          placement: 'top',
           render: () => (
             <AlertToast status="error" title="Erro ao cadastrar o usuário" />
           ),
@@ -88,69 +102,86 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Center flex={1} bg={'background'}>
-          <Container width={'full'}>
-            <VStack w={'full'} space={3} mt={5}>
+        <Center flex={1} bg={'$background'} p={'$5'}>
+          <Box width={'$full'}>
+            <VStack w={'$full'} space={'md'} mt={5}>
               <Center>
                 <Image
                   source={require('../../assets/images/logo-no-background.png')}
-                  width="100"
-                  height="112"
                   alt='Image of a logo with the name "Ranch Control"'
+                  sx={{
+                    width: 70,
+                    height: 80,
+                  }}
                 />
               </Center>
               <FormControl
                 isRequired
                 isInvalid={!!formik.errors.username && formik.touched.username}
               >
-                <FormControl.Label>Username</FormControl.Label>
-                <Input
-                  placeholder="username"
-                  value={formik.values.username}
-                  onChangeText={formik.handleChange('username')}
-                  onBlur={formik.handleBlur('username')}
-                />
-                <FormControl.ErrorMessage
-                  leftIcon={<WarningOutlineIcon size="xs" />}
-                >
-                  {formik.errors.username}
-                </FormControl.ErrorMessage>
+                <FormControlLabel mb="$1">
+                  <FormControlLabelText>Username</FormControlLabelText>
+                </FormControlLabel>
+                <Input>
+                  <InputField
+                    placeholder="username"
+                    value={formik.values.username}
+                    onChangeText={formik.handleChange('username')}
+                    onBlur={formik.handleBlur('username')}
+                  />
+                </Input>
+                <FormControlError>
+                  <FormControlErrorIcon as={AlertCircleIcon} />
+                  <FormControlErrorText>
+                    {formik.errors.username}
+                  </FormControlErrorText>
+                </FormControlError>
               </FormControl>
               <FormControl
                 isRequired
                 isInvalid={!!formik.errors.password && formik.touched.password}
               >
-                <FormControl.Label>Password</FormControl.Label>
-                <Input
-                  value={formik.values.password}
-                  onChangeText={formik.handleChange('password')}
-                  onBlur={formik.handleBlur('password')}
-                  placeholder="******"
-                  type="password"
-                />
-                <FormControl.ErrorMessage
-                  leftIcon={<WarningOutlineIcon size="xs" />}
-                >
-                  {formik.errors.password}
-                </FormControl.ErrorMessage>
+                <FormControlLabel mb="$1">
+                  <FormControlLabelText>Password</FormControlLabelText>
+                </FormControlLabel>
+                <Input>
+                  <InputField
+                    value={formik.values.password}
+                    onChangeText={formik.handleChange('password')}
+                    onBlur={formik.handleBlur('password')}
+                    placeholder="******"
+                    type="password"
+                  />
+                </Input>
+                <FormControlError>
+                  <FormControlErrorIcon as={AlertCircleIcon} />
+                  <FormControlErrorText>
+                    {formik.errors.password}
+                  </FormControlErrorText>
+                </FormControlError>
               </FormControl>
               <FormControl
                 isRequired
                 isInvalid={!!formik.errors.fullName && formik.touched.fullName}
               >
-                <FormControl.Label>Nome completo</FormControl.Label>
-                <Input
-                  value={formik.values.fullName}
-                  onChangeText={formik.handleChange('fullName')}
-                  onBlur={formik.handleBlur('fullName')}
-                  type="text"
-                  placeholder="Insira seu nome"
-                />
-                <FormControl.ErrorMessage
-                  leftIcon={<WarningOutlineIcon size="xs" />}
-                >
-                  {formik.errors.fullName}
-                </FormControl.ErrorMessage>
+                <FormControlLabel mb="$1">
+                  <FormControlLabelText>Nome completo</FormControlLabelText>
+                </FormControlLabel>
+                <Input>
+                  <InputField
+                    value={formik.values.fullName}
+                    onChangeText={formik.handleChange('fullName')}
+                    onBlur={formik.handleBlur('fullName')}
+                    type="text"
+                    placeholder="Insira seu nome"
+                  />
+                </Input>
+                <FormControlError>
+                  <FormControlErrorIcon as={AlertCircleIcon} />
+                  <FormControlErrorText>
+                    {formik.errors.fullName}
+                  </FormControlErrorText>
+                </FormControlError>
               </FormControl>
               <FormControl
                 isRequired
@@ -158,73 +189,86 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
                   !!formik.errors.phoneNumber && formik.touched.phoneNumber
                 }
               >
-                <FormControl.Label>Telefone</FormControl.Label>
-                <Input
-                  value={formik.values.phoneNumber}
-                  maxLength={15}
-                  onChangeText={(value) => {
-                    formik.setFieldValue(
-                      'phoneNumber',
-                      MaskService.toMask('cel-phone', value, {
-                        maskType: 'BRL',
-                        withDDD: true,
-                        dddMask: '(99) ',
-                      })
-                    );
-                  }}
-                  onBlur={formik.handleBlur('phoneNumber')}
-                  placeholder="(84) 98888-8888"
-                  keyboardType="number-pad"
-                />
-                <FormControl.ErrorMessage
-                  leftIcon={<WarningOutlineIcon size="xs" />}
-                >
-                  {formik.errors.phoneNumber}
-                </FormControl.ErrorMessage>
+                <FormControlLabel mb="$1">
+                  <FormControlLabelText>Telefone</FormControlLabelText>
+                </FormControlLabel>
+
+                <Input>
+                  <InputField
+                    value={formik.values.phoneNumber}
+                    maxLength={15}
+                    onChangeText={(value) => {
+                      formik.setFieldValue(
+                        'phoneNumber',
+                        MaskService.toMask('cel-phone', value, {
+                          maskType: 'BRL',
+                          withDDD: true,
+                          dddMask: '(99) ',
+                        })
+                      );
+                    }}
+                    onBlur={formik.handleBlur('phoneNumber')}
+                    placeholder="(84) 98888-8888"
+                    keyboardType="number-pad"
+                  />
+                </Input>
+                <FormControlError>
+                  <FormControlErrorIcon as={AlertCircleIcon} />
+                  <FormControlErrorText>
+                    {formik.errors.phoneNumber}
+                  </FormControlErrorText>
+                </FormControlError>
               </FormControl>
 
               <FormControl
                 isRequired
                 isInvalid={!!formik.errors.role && formik.touched.role}
               >
-                <FormControl.Label>Cargo</FormControl.Label>
+                <FormControlLabel mb="$1">
+                  <FormControlLabelText>Cargo</FormControlLabelText>
+                </FormControlLabel>
                 <Select
-                  accessibilityLabel="Escolha seu cargo"
-                  placeholder="Escolha seu cargo"
-                  _selectedItem={{
-                    bg: 'primary.600',
-                    endIcon: <CheckIcon size={5} />,
-                  }}
-                  mt="1"
                   selectedValue={formik.values.role}
                   onValueChange={formik.handleChange('role')}
                 >
-                  {Object.values(Enums.ERole).map((role) => (
-                    <Select.Item
-                      key={role}
-                      label={Enums.ERoleMap[role]}
-                      value={role}
-                    />
-                  ))}
+                  <SelectTrigger variant="outline" size="md">
+                    <SelectInput placeholder="Select option" />
+                    <SelectIcon mr="$3">
+                      <Icon as={ChevronDownIcon} />
+                    </SelectIcon>
+                  </SelectTrigger>
+                  <SelectPortal>
+                    <SelectBackdrop />
+                    <SelectContent>
+                      <SelectDragIndicatorWrapper>
+                        <SelectDragIndicator />
+                      </SelectDragIndicatorWrapper>
+                      {Object.values(Enums.ERole).map((role) => (
+                        <SelectItem
+                          key={role}
+                          label={Enums.ERoleMap[role]}
+                          value={role}
+                        />
+                      ))}
+                    </SelectContent>
+                  </SelectPortal>
                 </Select>
+
                 {formik.errors.role && formik.touched.role && (
-                  <FormControl.ErrorMessage
-                    leftIcon={<WarningOutlineIcon size="xs" />}
-                  >
-                    {formik.errors.role}
-                  </FormControl.ErrorMessage>
+                  <FormControlError>
+                    <FormControlErrorIcon as={AlertCircleIcon} />
+                    <FormControlErrorText>
+                      {formik.errors.role}
+                    </FormControlErrorText>
+                  </FormControlError>
                 )}
               </FormControl>
 
-              <Button
-                isLoading={createUserRequest.isLoading}
-                mt="2"
-                onPress={() => formik.handleSubmit()}
-              >
-                CADASTRAR
+              <Button mt="$2" onPress={() => formik.handleSubmit()}>
+                <ButtonText>CADASTRAR</ButtonText>
               </Button>
             </VStack>
-          </Container>
+          </Box>
         </Center>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

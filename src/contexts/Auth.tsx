@@ -9,6 +9,8 @@ interface AuthContextValues {
   isLoading: boolean;
   userInfo?: IUserInfo;
   authorized: boolean;
+  appConfig: IAdminConfig;
+  setAppConfig: React.Dispatch<React.SetStateAction<IAdminConfig>>;
   stopLoading: () => void;
   saveUserData: (userInfo: IUserInfo) => Promise<void>;
   deleteUserData: () => Promise<void>;
@@ -24,6 +26,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [appConfig, setAppConfig] = useState<IAdminConfig>();
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation<any>();
@@ -36,6 +39,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const deleteUserData = useCallback(async () => {
     setUserInfo(undefined);
+    setAppConfig(undefined);
   }, []);
 
   const deleteTokens = useCallback(async () => {
@@ -71,6 +75,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         isLoading,
         userInfo: userInfo,
         authorized: !!userInfo,
+        appConfig,
+        setAppConfig,
         stopLoading,
         saveUserData,
         deleteUserData,

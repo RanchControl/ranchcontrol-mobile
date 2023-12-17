@@ -1,17 +1,30 @@
 {
   "expo": {
-    "name": "ranchcontrol-mobile",
+    "name": "Ranch Control",
     "slug": "ranchcontrol-mobile",
     "version": "1.0.0",
-    "experiments": {
-      "tsconfigPaths": true
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fbf3e3"
     },
     "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tads.ranchcontrolmobile"
+    },
     "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#fbf3e3"
+      },
       "package": "com.tads.ranchcontrolmobile"
     },
-    "ios": {
-      "bundleIdentifier": "com.tads.ranchcontrolmobile"
+    "web": {
+      "favicon": "./assets/favicon.png"
     }
   }
 }

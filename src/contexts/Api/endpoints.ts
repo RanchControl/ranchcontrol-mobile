@@ -20,4 +20,26 @@ export const endpoints = {
   cep: {
     get: '/cep/v2/:cep',
   },
+  farm: {
+    list: '/farms/',
+    create: '/farms/',
+  },
+  enclosure: {
+    list: '/enclosure/',
+    detail: '/enclosure/:id/',
+    create: '/enclosure/',
+    update: '/enclosure/:id/',
+  },
+  batch: {
+    list: '/batchs/',
+    detail: '/batchs/:id/',
+    create: '/batchs/',
+    update: '/batchs/:id/',
+  },
+  animal: {
+    list: '/animals/',
+    detail: '/animals/:id/',
+    create: '/animals/',
+    update: '/animals/:id/',
+  },
 };

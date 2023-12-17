@@ -7,8 +7,10 @@ import React, {
   useState,
 } from 'react';
 
+import { useToast } from '@gluestack-ui/themed';
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
-import { useToast } from 'native-base';
+
+import AlertToast from '../../components/AlertToast';
 
 interface RequestConfig extends AxiosRequestConfig {
   method: Method;
@@ -96,8 +98,12 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
         async (responseError) => {
           if (responseError?.response?.status === 401) {
             toast.show({
-              title: 'Sua sessão expirou. Por favor, logue novamente.',
-              variant: 'error',
+              render: () => (
+                <AlertToast
+                  status={'error'}
+                  title={'Sua sessão expirou. Por favor, logue novamente.'}
+                />
+              ),
             });
             await onUnauthorized();
           }
