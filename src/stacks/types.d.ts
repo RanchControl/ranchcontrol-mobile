@@ -17,6 +17,7 @@ type PrivateStackParamList = {
   Dashboard: undefined;
   Profile: undefined;
   AdminConfig: undefined;
+  CreateFarm: undefined;
   AnimalStack: undefined;
   EnclosureStack?: { screen: keyof EnclosureStackParamList };
   BatchStack?: { screen: keyof BatchStackParamList };
