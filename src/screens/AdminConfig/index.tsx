@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Center, Spinner, useToast } from '@gluestack-ui/themed';
+import {
+  AddIcon,
+  Center,
+  Fab,
+  FabIcon,
+  Spinner,
+  useToast,
+} from '@gluestack-ui/themed';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList } from 'react-native';
 import { useQuery } from 'react-query';
@@ -55,6 +62,12 @@ const AdminConfig: React.FC<AdminConfigProps> = ({ navigation }) => {
         ListEmptyComponent={renderEmptyList}
         style={{ width: '100%' }}
       />
+      <Fab
+        onPress={() => navigation.navigate('CreateFarm')}
+        placement="bottom right"
+      >
+        <FabIcon as={AddIcon} />
+      </Fab>
     </Center>
   );
 };

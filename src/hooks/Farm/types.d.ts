@@ -8,3 +8,9 @@ interface Farm {
   updateAt: Date;
   deletedAt: Date;
 }
+
+interface FarmFormValues {
+  name: string;
+  cnpj: string;
+  address: string;
+}
